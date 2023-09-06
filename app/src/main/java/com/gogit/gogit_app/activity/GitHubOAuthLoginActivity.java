@@ -33,5 +33,6 @@ public class GitHubOAuthLoginActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
 
         webView.loadUrl(url);
+
     }
 }
