@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/gitlogo"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="300dp"
+        android:layout_marginBottom="90dp"
+        android:background="@drawable/git_logo" />
+
+    <Button
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/gitlogo"
+        android:layout_centerInParent="true"
+        android:background="@drawable/btn_round"
+        android:drawableLeft="@drawable/login_logo"
+        android:text="github로 로그인"
+        android:textSize="17sp" />
+</RelativeLayout>
