@@ -17,9 +17,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity.GitHubOAuthLoginActivity"
             android:exported="true">
             <intent-filter>
@@ -29,12 +26,21 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.GitHubOAuthLoginActivity"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="github-auth"
+                    android:scheme="test" />
             </intent-filter>
         </activity>
     </application>
