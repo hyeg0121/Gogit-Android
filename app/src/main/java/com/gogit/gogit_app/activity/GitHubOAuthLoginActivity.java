@@ -1,26 +1,22 @@
 package com.gogit.gogit_app.activity;
 
-import static kotlinx.coroutines.BuildersKt.launch;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.browser.customtabs.CustomTabsIntent;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Bundle;
-import android.util.Log;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.Toast;
+import android.webkit.WebViewClient;
 
 import com.gogit.gogit_app.R;
-import com.gogit.gogit_app.client.MyWebViewClient;
-import com.gogit.gogit_app.util.Util;
 
 public class GitHubOAuthLoginActivity extends AppCompatActivity {
 
-    String url = "http://10.0.2.2:8080/login/github";
+    final String URL = "http://10.0.2.2:8080/login/github";
+    final String REDIREC_URL = "http://10.0.2.2:8080/login/oauth2/code/github";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +25,29 @@ public class GitHubOAuthLoginActivity extends AppCompatActivity {
 
         WebView webView = findViewById(R.id.webview);
         WebSettings webSettings = webView.getSettings();
-        webView.setWebViewClient(new MyWebViewClient());
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                handler.proceed(); // SSL 인증서 무시
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                //return super.shouldOverrideUrlLoading(view, request);
+                view.loadUrl(request.getUrl().toString());
+                return true; //응용프로그램이 직접 url 처리
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                    Intent intent = new Intent(GitHubOAuthLoginActivity.this, TokenActivity.class);
+                    startActivity(intent);
+            }
+
+        });
         webSettings.setJavaScriptEnabled(true);
 
-        webView.loadUrl(url);
+        webView.loadUrl(URL);
 
     }
 }
