@@ -2,10 +2,9 @@ package com.gogit.gogit_app.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,11 +14,14 @@ import com.gogit.gogit_app.R;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
 
-import java.io.IOException;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class TokenActivity extends AppCompatActivity {
 
-    String myToken = "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";
+    @SuppressLint("CheckResult")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +34,24 @@ public class TokenActivity extends AppCompatActivity {
         submitButton.setOnClickListener(e -> {
             String token = toeknEditText.getText().toString();
             Log.d("my tag", token);
+
+            Observable.fromCallable(() -> {
+                GitHub gitHub = new GitHubBuilder().withOAuthToken(myToken).build();
+                return gitHub;
+            })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            gitHub -> {
+                                Intent intent = new Intent(TokenActivity.this, MemberMainActivity.class);
+                                startActivity(intent);
+                            },
+                            error -> {
+                                Log.d("my tag", "error");
+                            }
+                    );
+
+
         });
     }
 }
