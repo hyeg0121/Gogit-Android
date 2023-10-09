@@ -19,6 +19,7 @@
         android:layout_below="@+id/gitlogo"
         android:layout_centerInParent="true">
         <EditText
+            android:id="@+id/token_editText"
             android:background="@drawable/edit_text_style"
             android:layout_width="0dp"
             android:layout_weight="3"
@@ -26,6 +27,7 @@
             android:padding="15dp"
             android:hint="토큰을 입력하세요"/>
         <Button
+            android:id="@+id/submit_button"
             android:layout_width="0dp"
             android:text="확인"
             android:textSize="17dp"
