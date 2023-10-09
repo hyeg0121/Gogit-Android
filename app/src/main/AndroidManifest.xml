@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activity.TokenActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.GitHubOAuthLoginActivity"
             android:exported="true">
             <intent-filter>
@@ -26,9 +29,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.GitHubOAuthLoginActivity"
-            android:exported="true">
-        </activity>
+            android:name=".activity.LoginActivity"
+            android:exported="true"
+            tools:ignore="DuplicateActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
