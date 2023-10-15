@@ -1,11 +1,13 @@
-package com.gogit.gogit_app.activity;
+ package com.gogit.gogit_app.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.net.http.SslError;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.SslErrorHandler;
+import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -15,7 +17,7 @@ import com.gogit.gogit_app.R;
 
 public class GitHubOAuthLoginActivity extends AppCompatActivity {
 
-    final String URL = "http://10.0.2.2:8080/login/github";
+    final String URL = "http://10.0.2.2:8080/login";
     final String REDIREC_URL = "http://10.0.2.2:8080";
 
     @Override
@@ -25,10 +27,19 @@ public class GitHubOAuthLoginActivity extends AppCompatActivity {
 
         WebView webView = findViewById(R.id.webview);
         WebSettings webSettings = webView.getSettings();
+        webView.clearCache(true);
+        webView.clearHistory();
+        webView.clearFormData();
+
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
                 handler.proceed(); // SSL 인증서 무시
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                Log.d("my tag", error.toString());
             }
 
             @Override
