@@ -16,7 +16,7 @@ import com.gogit.gogit_app.R;
 public class GitHubOAuthLoginActivity extends AppCompatActivity {
 
     final String URL = "http://10.0.2.2:8080/login/github";
-    final String REDIREC_URL = "http://10.0.2.2:8080/login/oauth2/code/github";
+    final String REDIREC_URL = "http://10.0.2.2:8080";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,7 @@ public class GitHubOAuthLoginActivity extends AppCompatActivity {
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 //return super.shouldOverrideUrlLoading(view, request);
                 view.loadUrl(request.getUrl().toString());
+
                 return true; //응용프로그램이 직접 url 처리
             }
 
