@@ -17,7 +17,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Button loginButton = findViewById(R.id.login_button);
         loginButton.setOnClickListener(e -> {
-            Intent intent = new Intent(this, GitHubOAuthLoginActivity.class);
+            Intent intent = new Intent(this, GenericIdpActivity.class);
             startActivity(intent);
         });
     }
