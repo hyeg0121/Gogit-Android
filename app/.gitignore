@@ -1,3 +1,5 @@
 /build
 google-services.json
 gradle.properties
+Config.java
+Config.class
