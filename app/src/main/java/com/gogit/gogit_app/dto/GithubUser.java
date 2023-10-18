@@ -11,6 +11,27 @@ public class GithubUser {
     private int followers;
     private int following;
 
+    private int total_private_repos;
+
+    @Override
+    public String toString() {
+        return "GithubUser{" +
+                "login='" + login + '\'' +
+                ", avatar_url='" + avatar_url + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", public_repos=" + public_repos +
+                ", followers=" + followers +
+                ", following=" + following +
+                ", total_private_repos=" + total_private_repos +
+                '}';
+    }
+
+
+    public int getTotal_private_repos() {
+        return total_private_repos;
+    }
+
     public String getLogin() {
         return login;
     }
@@ -39,16 +60,4 @@ public class GithubUser {
         return following;
     }
 
-    @Override
-    public String toString() {
-        return "GithubUser{" +
-                "login='" + login + '\'' +
-                ", avartar_url='" + avatar_url + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", public_repos=" + public_repos +
-                ", followers=" + followers +
-                ", following=" + following +
-                '}';
-    }
 }
