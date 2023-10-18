@@ -3,10 +3,12 @@ package com.gogit.gogit_app.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -43,14 +45,15 @@ public class MemberMainActivity extends AppCompatActivity {
                 findViewById(R.id.organization),
                 findViewById(R.id.organization2),
                 findViewById(R.id.organization3)
-        };
+        }; // TODO: 오가니제이션 가지고 오기
 
+        // 레트로핏
         Retrofit githubRetrofit = GithubRetrofitClient.getRetrofitInstance();
         GithubService githubService = githubRetrofit.create(GithubService.class);
 
-        String username = "hyeg0121";
+        String login = "hyeg0121";
         Call<GithubUser> call = githubService.getUser(
-                "Bearer " + Config.GITHUB_TOKEN, username);
+                "Bearer " + Config.GITHUB_TOKEN, login);
 
         call.enqueue(new Callback<GithubUser>() {
             @Override
@@ -69,10 +72,16 @@ public class MemberMainActivity extends AppCompatActivity {
                                 .error(R.drawable.git_logo)
                                 .placeholder(R.drawable.git_logo)
                                 .into(profileImageView);
-                        repoTextview.setText(user.getPublic_repos() + "");
-                        // TODO: 프라이빗도 가져오기
+                        repoTextview.setText((user.getPublic_repos() + user.getTotal_private_repos()) + "");
                         followerTextView.setText(user.getFollowers() + "");
                         followingTextView.setText(user.getFollowing() + "");
+
+                        LinearLayout followerLayout = findViewById(R.id.follower_layout);
+                        followerLayout.setOnClickListener(e -> {
+                            Intent intent = new Intent(MemberMainActivity.this, FollowerActivity.class);
+                            intent.putExtra("login", user.getLogin());
+                            startActivity(intent);
+                        });
                     }
                 }
             }
@@ -82,5 +91,7 @@ public class MemberMainActivity extends AppCompatActivity {
                 Log.d("my tag", t.getMessage());
             }
         });
+
+
     }
 }
