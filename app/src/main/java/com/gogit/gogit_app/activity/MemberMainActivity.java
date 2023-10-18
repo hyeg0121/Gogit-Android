@@ -27,8 +27,6 @@ import retrofit2.Retrofit;
 
 public class MemberMainActivity extends AppCompatActivity {
 
-
-    String myToken = "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";
     @SuppressLint("CheckResult")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
