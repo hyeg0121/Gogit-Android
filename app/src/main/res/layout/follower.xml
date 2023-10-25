@@ -17,15 +17,18 @@
         android:layout_height="1dp"
         android:background="@color/gray900"/>
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_view"
+    <EditText
+        android:id="@+id/search"
         android:layout_width="370dp"
-        android:layout_height="wrap_content"
-        app:iconifiedByDefault="false"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        app:queryHint="검색어를 입력하시오"
-        app:queryBackground="@drawable/search_style"
-        android:layout_gravity="center"/>
+        android:background="@drawable/search_style"
+        android:paddingLeft="15dp"
+        android:drawableLeft="@drawable/baseline_search_24"
+        android:drawableTint="@color/gray900"
+        android:drawablePadding="10dp"
+        android:hint="검색" />
 
     <ScrollView
         android:layout_width="match_parent"
