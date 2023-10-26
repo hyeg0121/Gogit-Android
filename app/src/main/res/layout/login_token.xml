@@ -26,15 +26,17 @@
             android:layout_height="50dp"
             android:padding="15dp"
             android:hint="토큰을 입력하세요"/>
-        <Button
+        <android.widget.Button
             android:id="@+id/submit_button"
             android:layout_width="0dp"
             android:text="확인"
+            android:textColor="@color/white"
             android:textSize="17dp"
             android:layout_weight="1"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:background="@drawable/btn_round"
+            android:backgroundTint="@color/black"
             />
     </LinearLayout>
 </RelativeLayout>

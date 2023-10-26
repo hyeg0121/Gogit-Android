@@ -13,14 +13,17 @@
         android:layout_marginBottom="90dp"
         android:background="@drawable/git_logo" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/login_button"
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_below="@+id/gitlogo"
         android:layout_centerInParent="true"
         android:background="@drawable/btn_round"
+        android:backgroundTint="@color/black"
         android:drawableLeft="@drawable/login_logo"
+        android:paddingLeft="20dp"
         android:text="github로 로그인"
+        android:textColor="@color/white"
         android:textSize="17sp" />
 </RelativeLayout>

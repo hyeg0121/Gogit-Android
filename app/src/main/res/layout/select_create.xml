@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.widget.Button
+        android:id="@+id/repositories_create_btn"
+        android:layout_width="350dp"
+        android:layout_height="55dp"
+        android:background="@drawable/btn_round"
+        android:backgroundTint="@color/black"
+        android:text="새 리포지토리"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:layout_marginBottom="50dp"/>
+    <android.widget.Button
+        android:id="@+id/post_create_btn"
+        android:layout_width="350dp"
+        android:background="@drawable/btn_round"
+        android:backgroundTint="@color/black"
+        android:layout_height="55dp"
+        android:text="새 게시물"
+        android:textSize="17sp"
+        android:textColor="@color/white"/>
+
+</LinearLayout>

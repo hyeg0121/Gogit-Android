@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -128,10 +130,11 @@
                 android:layout_marginRight="6dp"
                 android:id="@+id/organization3"/>
         </LinearLayout>
-        <Button
+        <android.widget.Button
             android:text="팔로우"
             android:background="@drawable/btn_round"
             android:backgroundTint="@color/blue"
+            android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_below="@+id/organization_btn"
