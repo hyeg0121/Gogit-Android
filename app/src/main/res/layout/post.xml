@@ -4,7 +4,9 @@
     android:layout_height="wrap_content"
     android:padding="25dp"
     android:background="@drawable/button_underline"
-    tools:showln="layout/fragment_user">
+    >
+
+    <!--    tools:showIn="layout/fragment_user"-->
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
