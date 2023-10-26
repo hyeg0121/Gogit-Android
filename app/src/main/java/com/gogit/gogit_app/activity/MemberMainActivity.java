@@ -27,6 +27,8 @@ import retrofit2.Retrofit;
 
 public class MemberMainActivity extends AppCompatActivity {
 
+    String userLogin = "";
+
     @SuppressLint("CheckResult")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class MemberMainActivity extends AppCompatActivity {
         Retrofit githubRetrofit = GithubRetrofitClient.getRetrofitInstance();
         GithubService githubService = githubRetrofit.create(GithubService.class);
 
-        String login = "hyeg0121";
+        String login = getIntent().getStringExtra("login");
         Call<GithubUser> call = githubService.getUser(
                 "Bearer " + Config.GITHUB_TOKEN, login);
 
