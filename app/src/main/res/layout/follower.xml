@@ -4,14 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="팔로워"
-        android:textSize="20dp"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        />
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:background="@drawable/baseline_chevron_left_24"
+            android:layout_marginLeft="20dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="35dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="팔로워"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="40dp"
+            />
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
