@@ -2,6 +2,8 @@ package com.gogit.gogit_app.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -13,14 +15,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.OAuthCredential;
 import com.google.firebase.auth.OAuthProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.function.LongFunction;
 
 public class GenericIdpActivity extends AppCompatActivity {
 
@@ -63,7 +62,6 @@ public class GenericIdpActivity extends AppCompatActivity {
 
         Task<AuthResult> pendingResultTask = firebaseAuth.getPendingAuthResult();
         if (pendingResultTask != null) {
-            // There's something already here! Finish the sign-in for your user.
             pendingResultTask
                     .addOnSuccessListener(
                             new OnSuccessListener<AuthResult>() {
@@ -72,6 +70,11 @@ public class GenericIdpActivity extends AppCompatActivity {
 
                                     Map<String, Object> oAuthCredential = authResult.getAdditionalUserInfo().getProfile();
                                     Log.d("my tag", oAuthCredential.toString());
+                                    Intent intent = new Intent(GenericIdpActivity.this, MemberMainActivity.class);
+                                    String login = (String) oAuthCredential.get("login");
+                                    intent.putExtra("login", login);
+
+                                    startActivity(intent);
                                 }
                             })
                     .addOnFailureListener(
@@ -82,8 +85,7 @@ public class GenericIdpActivity extends AppCompatActivity {
                                 }
                             });
         } else {
-            // There's no pending result so you need to start the sign-in flow.
-            // See below.
+
         }
 
         firebaseAuth
@@ -94,6 +96,11 @@ public class GenericIdpActivity extends AppCompatActivity {
                             public void onSuccess(AuthResult authResult) {
                                 Map<String, Object> oAuthCredential = authResult.getAdditionalUserInfo().getProfile();
                                 Log.d("my tag", oAuthCredential.toString());
+                                Intent intent = new Intent(GenericIdpActivity.this, MemberMainActivity.class);
+                                String login = (String) oAuthCredential.get("login");
+                                intent.putExtra("login", login);
+
+                                startActivity(intent);
                             }
                         })
                 .addOnFailureListener(
