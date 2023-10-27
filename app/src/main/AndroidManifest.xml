@@ -17,22 +17,19 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".activity.FollowerActivity"
+            android:name=".ui.FollowerActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.GenericIdpActivity"
+            android:name=".ui.GenericIdpActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.MemberMainActivity"
+            android:name=".ui.MemberMainActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.TokenActivity"
+            android:name=".ui.TokenActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.GitHubOAuthLoginActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity.LoginActivity"
+            android:name=".ui.LoginActivity"
             android:exported="true"
             tools:ignore="DuplicateActivity">
             <intent-filter>
