@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 public class SessionManager {
     public static final String PREF_NAME = "LoginPrefs";
-    public static final String KEY_USERID = "userids";
+    public static final String KEY_USERID = "userid";
     public static final String KEY_TOKEN = "usertoken";
 
     private SharedPreferences pref;
@@ -18,8 +18,8 @@ public class SessionManager {
         editor = pref.edit();
     }
 
-    public void saveLoginDetails(String username, String token) {
-        editor.putString(KEY_USERID, username);
+    public void saveLoginDetails(String userId, String token) {
+        editor.putString(KEY_USERID, userId);
         editor.putString(KEY_TOKEN, token);
         editor.apply();
     }
