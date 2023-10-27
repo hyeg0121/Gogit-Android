@@ -1,4 +1,4 @@
-package com.gogit.gogit_app.activity;
+package com.gogit.gogit_app.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,7 +17,6 @@ import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
 import com.gogit.gogit_app.config.Config;
 import com.gogit.gogit_app.dto.GithubUser;
-import com.gogit.gogit_app.service.ApiService;
 import com.gogit.gogit_app.service.GithubService;
 
 import retrofit2.Call;
