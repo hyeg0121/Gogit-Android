@@ -14,6 +14,10 @@ public class GithubRetrofitClient {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
+         retrofit = new Retrofit.Builder()
+                .baseUrl(GITHUB_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
         return retrofit;
     }
