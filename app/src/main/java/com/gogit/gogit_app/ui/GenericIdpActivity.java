@@ -1,4 +1,4 @@
-package com.gogit.gogit_app.activity;
+package com.gogit.gogit_app.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -92,12 +92,14 @@ public class GenericIdpActivity extends AppCompatActivity {
                 .startActivityForSignInWithProvider(/* activity= */ this, provider.build())
                 .addOnSuccessListener(
                         new OnSuccessListener<AuthResult>() {
+                            // 로그인 되었을 때
                             @Override
                             public void onSuccess(AuthResult authResult) {
                                 Map<String, Object> oAuthCredential = authResult.getAdditionalUserInfo().getProfile();
                                 Log.d("my tag", oAuthCredential.toString());
-                                Intent intent = new Intent(GenericIdpActivity.this, MemberMainActivity.class);
                                 String login = (String) oAuthCredential.get("login");
+
+                                Intent intent = new Intent(GenericIdpActivity.this, TokenActivity.class);
                                 intent.putExtra("login", login);
 
                                 startActivity(intent);
