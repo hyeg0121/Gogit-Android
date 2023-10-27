@@ -1,4 +1,4 @@
-package com.gogit.gogit_app.activity;
+package com.gogit.gogit_app.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
