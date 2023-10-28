@@ -85,7 +85,12 @@ public class TokenActivity extends AppCompatActivity {
                         Log.d("my tag", "404 error");
                     } else {
                         Member member = response.body();
+                        sessionManager.setUserPk(member.getId());
                         Log.d("my tag", member.toString());
+
+                        // 액티비티 이동
+                        Intent intent = new Intent(TokenActivity.this, MemberMainActivity.class);
+                        startActivity(intent);
                     }
                 }
 
@@ -96,9 +101,7 @@ public class TokenActivity extends AppCompatActivity {
                 }
             });
 
-            // 액티비티 이동
-            Intent intent = new Intent(TokenActivity.this, MemberMainActivity.class);
-            startActivity(intent);
+
 
         });
     }
