@@ -18,10 +18,11 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login);
 
         SessionManager sessionManager = new SessionManager(getApplicationContext());
+        sessionManager.clearLoginDetails();
 
         if (sessionManager.getToken() != null
                 && sessionManager.getUserId() != null) {
-            Intent intent = new Intent(LoginActivity.this, MemberMainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
         }
 

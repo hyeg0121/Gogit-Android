@@ -1,6 +1,5 @@
 package com.gogit.gogit_app.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -22,7 +21,6 @@ import com.gogit.gogit_app.config.Config;
 import com.gogit.gogit_app.config.SessionManager;
 import com.gogit.gogit_app.dto.GithubUser;
 import com.gogit.gogit_app.service.GithubService;
-import com.gogit.gogit_app.ui.MemberMainActivity;
 
 import java.util.List;
 

@@ -1,8 +1,5 @@
 package com.gogit.gogit_app.fragment;
 
-import static com.firebase.ui.auth.AuthUI.getApplicationContext;
-
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -32,8 +29,6 @@ import com.gogit.gogit_app.dto.GithubUser;
 import com.gogit.gogit_app.dto.Post;
 import com.gogit.gogit_app.service.GithubService;
 import com.gogit.gogit_app.service.MemberService;
-import com.gogit.gogit_app.ui.FollowerActivity;
-import com.gogit.gogit_app.ui.MemberMainActivity;
 
 import java.util.List;
 
