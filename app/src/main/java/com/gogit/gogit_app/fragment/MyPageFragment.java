@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,6 +51,9 @@ public class MyPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, container, false);
+
+        SessionManager sessionManager = new SessionManager(getContext());
+
         TextView userIdTextView = view.findViewById(R.id.userId);
         ImageView profileImageView = view.findViewById(R.id.profileImg);
         TextView repoTextview = view.findViewById(R.id.account_repositories);
@@ -61,7 +66,21 @@ public class MyPageFragment extends Fragment {
                 view.findViewById(R.id.organization3)
         }; // TODO: 오가니제이션 가지고 오기
 
-        SessionManager sessionManager = new SessionManager(getContext());
+        LinearLayout followerLayout = view.findViewById(R.id.follower_layout);
+        followerLayout.setOnClickListener(e -> {
+            // 프래그먼트 트랜잭션 시작
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+            // Follower 프래그먼트를 생성하고 추가
+            FollowerFragment followerFragment = new FollowerFragment();
+            transaction.replace(R.id.containers, followerFragment);
+            transaction.addToBackStack(null); // 이전 상태를 백 스택에 추가
+
+            // 트랜잭션 커밋
+            transaction.commit();
+        });
+
 
         // 레트로핏
         Retrofit githubRetrofit = GithubRetrofitClient.getRetrofitInstance();
@@ -94,13 +113,6 @@ public class MyPageFragment extends Fragment {
                         followerTextView.setText(user.getFollowers() + "");
                         followingTextView.setText(user.getFollowing() + "");
 
-                        // TODO: 함수 밖에서 이벤트 처리
-                        LinearLayout followerLayout = view.findViewById(R.id.follower_layout);
-                        followerLayout.setOnClickListener(e -> {
-                            Intent intent = new Intent(getContext(), FollowerActivity.class);
-                            intent.putExtra("login", user.getLogin());
-                            startActivity(intent);
-                        });
                     }
                 }
             }
