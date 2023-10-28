@@ -1,6 +1,8 @@
 package com.gogit.gogit_app.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -14,11 +16,18 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gogit.gogit_app.R;
+import com.gogit.gogit_app.adapter.FollowerAdapter;
+import com.gogit.gogit_app.adapter.PostAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
+import com.gogit.gogit_app.client.RetrofitClient;
 import com.gogit.gogit_app.config.Config;
 import com.gogit.gogit_app.config.SessionManager;
 import com.gogit.gogit_app.dto.GithubUser;
+import com.gogit.gogit_app.dto.Post;
 import com.gogit.gogit_app.service.GithubService;
+import com.gogit.gogit_app.service.MemberService;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,16 +56,19 @@ public class MemberMainActivity extends AppCompatActivity {
                 findViewById(R.id.organization3)
         }; // TODO: 오가니제이션 가지고 오기
 
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+
         // 레트로핏
         Retrofit githubRetrofit = GithubRetrofitClient.getRetrofitInstance();
-        GithubService githubService = githubRetrofit.create(GithubService.class);
 
-        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        GithubService githubService = githubRetrofit.create(GithubService.class);
         String login = sessionManager.getUserId();
-        Call<GithubUser> call = githubService.getUser(
+        Call<GithubUser> userCall = githubService.getUser(
                 "Bearer " + Config.GITHUB_TOKEN, login);
 
-        call.enqueue(new Callback<GithubUser>() {
+
+        // 유저 정보
+        userCall.enqueue(new Callback<GithubUser>() {
             @Override
             public void onResponse(Call<GithubUser> call, Response<GithubUser> response) {
                 if (response.code() == 404) {
@@ -77,6 +89,7 @@ public class MemberMainActivity extends AppCompatActivity {
                         followerTextView.setText(user.getFollowers() + "");
                         followingTextView.setText(user.getFollowing() + "");
 
+                        // TODO: 함수 밖에서 이벤트 처리
                         LinearLayout followerLayout = findViewById(R.id.follower_layout);
                         followerLayout.setOnClickListener(e -> {
                             Intent intent = new Intent(MemberMainActivity.this, FollowerActivity.class);
@@ -93,6 +106,35 @@ public class MemberMainActivity extends AppCompatActivity {
             }
         });
 
+        // 글 정보 불러오기
+        RecyclerView postsView = findViewById(R.id.post_recyclerview);
+        postsView.setHasFixedSize(false);
+        postsView.setLayoutManager(new LinearLayoutManager(this));
+
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        MemberService memberService = retrofit.create(MemberService.class);
+        Call<List<Post>> postListCall = memberService.getPostByWriterId(sessionManager.getPk());
+        postListCall.enqueue(new Callback<List<Post>>(){
+
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                if (response.code() != 404) {
+                    List<Post> posts = response.body();
+                    postsView.setAdapter(new PostAdapter(posts));
+                    Log.d("my tag", posts.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+                Log.d("my tag", t.getMessage());
+            }
+        });
 
     }
+
+    public void setUserInfo() {
+
+    }
+
 }

@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import com.gogit.gogit_app.R;
+import com.gogit.gogit_app.config.SessionManager;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -14,6 +16,14 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+
+        if (sessionManager.getToken() != null
+                && sessionManager.getUserId() != null) {
+            Intent intent = new Intent(LoginActivity.this, MemberMainActivity.class);
+            startActivity(intent);
+        }
 
         Button loginButton = findViewById(R.id.login_button);
         loginButton.setOnClickListener(e -> {

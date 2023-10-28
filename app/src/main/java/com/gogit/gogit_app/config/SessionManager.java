@@ -7,6 +7,7 @@ public class SessionManager {
     public static final String PREF_NAME = "LoginPrefs";
     public static final String KEY_USERID = "userid";
     public static final String KEY_TOKEN = "usertoken";
+    public static final String KEY_PK = "userpk";
 
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
@@ -24,6 +25,12 @@ public class SessionManager {
         editor.apply();
     }
 
+    public void setUserPk(Long pk) {
+        editor.putLong(KEY_PK, pk);
+        editor.apply();
+    }
+
+
     public String getUserId() {
         return pref.getString(KEY_USERID, null);
     }
@@ -32,9 +39,14 @@ public class SessionManager {
         return pref.getString(KEY_TOKEN, null);
     }
 
+    public Long getPk() {
+        return pref.getLong(KEY_PK, 1);
+    }
+
     public void clearLoginDetails() {
         editor.remove(KEY_USERID);
         editor.remove(KEY_TOKEN);
+        editor.remove(KEY_PK);
         editor.apply();
     }
 
