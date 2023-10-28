@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageButton;
 
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.adapter.FollowerAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
 import com.gogit.gogit_app.config.Config;
+import com.gogit.gogit_app.config.SessionManager;
 import com.gogit.gogit_app.dto.GithubUser;
 import com.gogit.gogit_app.service.GithubService;
 
@@ -27,8 +31,17 @@ public class FollowerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.follower);
+        // 로그인 정보 가져오기
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String login = sessionManager.getUserId();
 
-        String login = getIntent().getStringExtra("login");
+        // 이전 버튼 액션 리스너
+        ImageButton prevButton = findViewById(R.id.prev_button);
+        prevButton.setOnClickListener(e -> {
+            Intent intent = new Intent(getApplicationContext(), MemberMainActivity.class);
+            startActivity(intent);
+        });
+
 
         Retrofit githubRetrofit = GithubRetrofitClient.getRetrofitInstance();
         GithubService githubService = githubRetrofit.create(GithubService.class);

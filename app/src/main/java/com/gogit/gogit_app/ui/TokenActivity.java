@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -12,8 +13,14 @@ import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.client.RetrofitClient;
 import com.gogit.gogit_app.config.Config;
 import com.gogit.gogit_app.config.SessionManager;
+import com.gogit.gogit_app.dto.Member;
+import com.gogit.gogit_app.dto.MemberSignInRequest;
+import com.gogit.gogit_app.service.MemberService;
 import com.gogit.gogit_app.util.MyToast;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class TokenActivity extends AppCompatActivity {
@@ -22,22 +29,24 @@ public class TokenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_token);
 
+        // 세션 매니저 인스턴스
         SessionManager sessionManager = new SessionManager(getApplicationContext());
 
         // 토큰이 있으면 입력받지 않음
-        // TODO: 토큰이 유효한 토큰인지 검사
-        if (sessionManager.getToken() != null) {
+        if (sessionManager.getToken() != null && sessionManager.getUserId() != null) {
             Intent intent = new Intent(TokenActivity.this, MemberMainActivity.class);
             startActivity(intent);
         }
 
+        // 레트로핏과 서비스 인스턴스
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        MemberService  memberService = retrofit.create(MemberService.class);
 
-
+        // 뷰 가져오기
         Button submitButton = findViewById(R.id.submit_button);
         EditText toeknEditText = findViewById(R.id.token_editText);
 
-
+        // 확인 버튼을 눌렀을 때 이벤트
         submitButton.setOnClickListener(e -> {
             String token = toeknEditText.getText().toString();
 
@@ -47,8 +56,47 @@ public class TokenActivity extends AppCompatActivity {
                 return;
             }
 
-            sessionManager.saveLoginDetails(getIntent().getStringExtra(SessionManager.KEY_TOKEN), Config.GITHUB_TOKEN);
+            // 세션 스토라지에 저장
+            sessionManager.saveLoginDetails(
+                    getIntent().getStringExtra(SessionManager.KEY_USERID),
+                    Config.GITHUB_TOKEN
+            );
 
+            Log.d("my tag", sessionManager.getUserId());
+            Log.d("my tag", sessionManager.getToken());
+            // sharedPreferences의 로그인 정보가 null일 때
+            if (sessionManager.getUserId() == null || sessionManager.getToken() == null) {
+                MyToast.showToast(getApplicationContext(), "유저 이름과 토큰이 없습니다.");
+                return;
+            }
+
+            // 리퀘스트 생성
+            MemberSignInRequest memberSignInRequest = new MemberSignInRequest(
+                    sessionManager.getUserId(),
+                    sessionManager.getToken()
+            );
+
+            // api 요청
+            Call<Member> call = memberService.createMember(memberSignInRequest);
+            call.enqueue(new Callback<Member>() {
+                @Override
+                public void onResponse(Call<Member> call, Response<Member> response) {
+                    if (response.code() == 404) {
+                        Log.d("my tag", "404 error");
+                    } else {
+                        Member member = response.body();
+                        Log.d("my tag", member.toString());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Member> call, Throwable t) {
+                    Log.d("my tag", "onFailure: " + t.getMessage());
+                    MyToast.showToast(getApplicationContext(), "네트워크 에러 발생");
+                }
+            });
+
+            // 액티비티 이동
             Intent intent = new Intent(TokenActivity.this, MemberMainActivity.class);
             startActivity(intent);
 

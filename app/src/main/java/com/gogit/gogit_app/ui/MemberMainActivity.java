@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
 import com.gogit.gogit_app.config.Config;
+import com.gogit.gogit_app.config.SessionManager;
 import com.gogit.gogit_app.dto.GithubUser;
 import com.gogit.gogit_app.service.GithubService;
 
@@ -50,7 +51,8 @@ public class MemberMainActivity extends AppCompatActivity {
         Retrofit githubRetrofit = GithubRetrofitClient.getRetrofitInstance();
         GithubService githubService = githubRetrofit.create(GithubService.class);
 
-        String login = getIntent().getStringExtra("login");
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String login = sessionManager.getUserId();
         Call<GithubUser> call = githubService.getUser(
                 "Bearer " + Config.GITHUB_TOKEN, login);
 

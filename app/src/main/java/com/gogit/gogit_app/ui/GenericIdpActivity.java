@@ -10,6 +10,7 @@ import android.util.Log;
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.config.Config;
 import com.gogit.gogit_app.config.NetworkUtils;
+import com.gogit.gogit_app.config.SessionManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -100,7 +101,7 @@ public class GenericIdpActivity extends AppCompatActivity {
                                 String login = (String) oAuthCredential.get("login");
 
                                 Intent intent = new Intent(GenericIdpActivity.this, TokenActivity.class);
-                                intent.putExtra("login", login);
+                                intent.putExtra(SessionManager.KEY_USERID, login);
 
                                 startActivity(intent);
                             }
