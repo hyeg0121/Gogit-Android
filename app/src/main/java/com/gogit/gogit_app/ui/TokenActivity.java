@@ -89,7 +89,7 @@ public class TokenActivity extends AppCompatActivity {
                         Log.d("my tag", member.toString());
 
                         // 액티비티 이동
-                        Intent intent = new Intent(TokenActivity.this, MemberMainActivity.class);
+                        Intent intent = new Intent(TokenActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
                 }
