@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,13 +29,31 @@ public class PostFragment extends Fragment {
         Button postCreateButton = view.findViewById(R.id.post_create_btn);
 
         repositoryCreateButton.setOnClickListener(e -> {
-            Intent intent = new Intent(getActivity(), CreateRepoActivity.class);
-            startActivity(intent);
+            // 프래그먼트 트랜잭션 시작
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+            // Follower 프래그먼트를 생성하고 추가
+            CreateRepoFragment createRepoFragment = new CreateRepoFragment();
+            transaction.replace(R.id.containers, createRepoFragment);
+            transaction.addToBackStack(null); // 이전 상태를 백 스택에 추가
+
+            // 트랜잭션 커밋
+            transaction.commit();
         });
 
         postCreateButton.setOnClickListener(e -> {
-            Intent intent = new Intent(getActivity(), CreatePostActivity.class);
-            startActivity(intent);
+            // 프래그먼트 트랜잭션 시작
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+            // Follower 프래그먼트를 생성하고 추가
+            CreatePostFragment createPostFragment = new CreatePostFragment();
+            transaction.replace(R.id.containers, createPostFragment);
+            transaction.addToBackStack(null); // 이전 상태를 백 스택에 추가
+
+            // 트랜잭션 커밋
+            transaction.commit();
         });
 
         return view;
