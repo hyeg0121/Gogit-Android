@@ -143,8 +143,7 @@
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_height="wrap_content"
         android:background="@drawable/button_underline"
         android:id="@+id/postLayout">
         <LinearLayout
@@ -171,4 +170,31 @@
                 android:layout_weight="1"/>
         </LinearLayout>
     </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/postContainer">
+            <include layout="@layout/post"/>
+            <include layout="@layout/post"/>
+            <include layout="@layout/post"/>
+        </LinearLayout>
+    </ScrollView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        tools:showln="layout/fragment_user"
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:itemTextColor="@color/gray400"
+        app:itemIconSize="25dp"
+        app:labelVisibilityMode="unlabeled"
+        app:itemBackground="@color/white"
+        app:menu="@menu/bottom_menu">
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 </LinearLayout>

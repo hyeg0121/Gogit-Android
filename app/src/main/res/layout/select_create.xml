@@ -1,28 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.widget.Button
-        android:id="@+id/repositories_create_btn"
-        android:layout_width="350dp"
-        android:layout_height="55dp"
-        android:background="@drawable/btn_round"
-        android:backgroundTint="@color/black"
-        android:text="새 리포지토리"
-        android:textColor="@color/white"
-        android:textSize="17sp"
-        android:layout_marginBottom="50dp"/>
-    <android.widget.Button
-        android:id="@+id/post_create_btn"
-        android:layout_width="350dp"
-        android:background="@drawable/btn_round"
-        android:backgroundTint="@color/black"
-        android:layout_height="55dp"
-        android:text="새 게시물"
-        android:textSize="17sp"
-        android:textColor="@color/white"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <android.widget.Button
+            android:id="@+id/repositories_create_btn"
+            android:layout_width="350dp"
+            android:layout_height="55dp"
+            android:background="@drawable/btn_round"
+            android:backgroundTint="@color/black"
+            android:text="새 리포지토리"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:layout_marginBottom="50dp"/>
+        <android.widget.Button
+            android:id="@+id/post_create_btn"
+            android:layout_width="350dp"
+            android:background="@drawable/btn_round"
+            android:backgroundTint="@color/black"
+            android:layout_height="55dp"
+            android:text="새 게시물"
+            android:textSize="17sp"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        tools:showln="layout/fragment_user"
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:itemTextColor="@color/gray400"
+        app:itemIconSize="25dp"
+        app:labelVisibilityMode="unlabeled"
+        app:itemBackground="@color/white"
+        app:menu="@menu/bottom_menu">
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </LinearLayout>
