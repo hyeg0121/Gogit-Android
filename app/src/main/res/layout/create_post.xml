@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
@@ -18,7 +20,8 @@
         android:background="@color/gray400"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:padding="30dp"
         android:orientation="vertical">
         <TextView
@@ -32,6 +35,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="400dp"
+            android:gravity="top"
+            android:paddingLeft="2dp"
             android:background="@drawable/organization_btn_round"/>
         <android.widget.Button
             android:layout_width="match_parent"
@@ -42,4 +47,16 @@
             android:layout_marginTop="70dp"
             android:layout_height="55dp"/>
     </LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        tools:showln="layout/fragment_user"
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:itemTextColor="@color/gray400"
+        app:itemIconSize="25dp"
+        app:labelVisibilityMode="unlabeled"
+        app:itemBackground="@color/white"
+        app:menu="@menu/bottom_menu">
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 </LinearLayout>
