@@ -71,7 +71,7 @@ public class GenericIdpActivity extends AppCompatActivity {
 
                                     Map<String, Object> oAuthCredential = authResult.getAdditionalUserInfo().getProfile();
                                     Log.d("my tag", oAuthCredential.toString());
-                                    Intent intent = new Intent(GenericIdpActivity.this, MemberMainActivity.class);
+                                    Intent intent = new Intent(GenericIdpActivity.this, MainActivity.class);
                                     String login = (String) oAuthCredential.get("login");
                                     intent.putExtra("login", login);
 
@@ -102,7 +102,8 @@ public class GenericIdpActivity extends AppCompatActivity {
 
                                 Intent intent = new Intent(GenericIdpActivity.this, TokenActivity.class);
                                 intent.putExtra(SessionManager.KEY_USERID, login);
-
+                                intent.putExtra("avatar_url", (String) oAuthCredential.get("avatar_url"));
+                                intent.putExtra("html_url", (String) oAuthCredential.get("html_url"));
                                 startActivity(intent);
                             }
                         })
