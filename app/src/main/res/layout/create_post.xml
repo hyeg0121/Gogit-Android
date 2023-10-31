@@ -38,7 +38,7 @@
             android:layout_height="400dp"
             android:gravity="top"
             android:paddingLeft="2dp"
-            android:background="@drawable/organization_btn_round"/>
+            android:background="@drawable/border_line_radius"/>
         <android.widget.Button
             android:id="@+id/upload_button"
             android:layout_width="match_parent"
