@@ -17,27 +17,47 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.FollowerActivity"
+            android:name=".ui.MainActivity"
+            android:exported="true" >
+
+        </activity>
+        <activity
+            android:name=".ui.HomeActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.CreateRepoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.SelectPostOrRepoActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".ui.CreatePostActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.FollowerActivity"
+            android:exported="true" />
         <activity
             android:name=".ui.GenericIdpActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ui.MemberMainActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ui.TokenActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ui.LoginActivity"
             android:exported="true"
-            tools:ignore="DuplicateActivity">
+            tools:ignore="DuplicateActivity" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
