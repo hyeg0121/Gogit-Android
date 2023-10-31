@@ -1,11 +1,11 @@
 package com.gogit.gogit_app.dto;
 
 public class AddPostRequest {
-    private final Member wrtier;
+    private final Member writer;
     private final String contents;
 
-    public AddPostRequest(Member wrtier, String contents) {
-        this.wrtier = wrtier;
+    public AddPostRequest(Member writer, String contents) {
+        this.writer = writer;
         this.contents = contents;
     }
 }
