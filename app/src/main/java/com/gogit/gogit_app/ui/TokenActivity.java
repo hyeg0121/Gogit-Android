@@ -34,7 +34,7 @@ public class TokenActivity extends AppCompatActivity {
 
         // 토큰이 있으면 입력받지 않음
         if (sessionManager.getToken() != null && sessionManager.getUserId() != null) {
-            Intent intent = new Intent(TokenActivity.this, MemberMainActivity.class);
+            Intent intent = new Intent(TokenActivity.this, MainActivity.class);
             startActivity(intent);
         }
 
@@ -73,7 +73,9 @@ public class TokenActivity extends AppCompatActivity {
             // 리퀘스트 생성
             MemberSignInRequest memberSignInRequest = new MemberSignInRequest(
                     sessionManager.getUserId(),
-                    sessionManager.getToken()
+                    sessionManager.getToken(),
+                    getIntent().getStringExtra("avatar_url"),
+                    getIntent().getStringExtra("html_url")
             );
 
             // api 요청
