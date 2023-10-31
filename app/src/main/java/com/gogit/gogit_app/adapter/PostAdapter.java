@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.dto.Post;
 
@@ -48,15 +49,32 @@ public class PostAdapter
 
         // 데이터
         Post post = data.get(position);
-        // db에 멤버 프로필 url 추가하기
+
+        Glide.with(view.getContext())
+                .load(post.getWriter().getAvatarUrl())
+                .apply(RequestOptions.circleCropTransform())
+                .error(R.drawable.git_logo)
+                .placeholder(R.drawable.git_logo)
+                .into(profileImageView);
+
         if (post.getWriter() != null) {
             userIdTextView.setText(post.getWriter().getGithubId());
         } else {
             Log.d("my tag", post.toString());
         }
         contentTextView.setText(post.getContents());
-//        commentCount.setText(post.getComment().size());
-//        likeCount.setText(post.getLikedMembers().size());
+
+        if (post.getComment() == null) {
+            commentCount.setText("0");
+        } else {
+            commentCount.setText(post.getComment().size());
+        }
+
+        if (post.getLikedMembers() == null) {
+            likeCount.setText("0");
+        } else {
+            likeCount.setText(post.getLikedMembers().size());
+        }
     }
 
     @Override
