@@ -1,19 +1,34 @@
 package com.gogit.gogit_app.dto;
 
-import java.util.List;
-
-import lombok.ToString;
-
 
 public class Member {
     private final Long id;
     private final String githubId;
     private final String githubToken;
 
-    public Member(Long id, String githubId, String githubToken, List<Post> likedArticles) {
+    private String avatarUrl;
+    private String htmlUrl;
+
+    public Member(Long id, String githubId, String githubToken) {
         this.id = id;
         this.githubId = githubId;
         this.githubToken = githubToken;
+    }
+
+    public Member(Long id, String githubId, String githubToken, String avatarUrl, String htmlUrl) {
+        this.id = id;
+        this.githubId = githubId;
+        this.githubToken = githubToken;
+        this.avatarUrl = avatarUrl;
+        this.htmlUrl = htmlUrl;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public String getHtmlUrl() {
+        return htmlUrl;
     }
 
     public Long getId() {
