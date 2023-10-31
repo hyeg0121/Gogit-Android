@@ -53,14 +53,7 @@ public class MyPageFragment extends Fragment {
         ImageView profileImageView = view.findViewById(R.id.profileImg);
         TextView repoTextview = view.findViewById(R.id.account_repositories);
         TextView followerTextView = view.findViewById(R.id.account_follower);
-        TextView followingTextView = view.findViewById(R.id.account_following);
         TextView usernameTextView = view.findViewById(R.id.userName);
-        ImageButton[] organizationButtons = {
-                view.findViewById(R.id.organization),
-                view.findViewById(R.id.organization2),
-                view.findViewById(R.id.organization3)
-        }; // TODO: 오가니제이션 가지고 오기
-
         LinearLayout followerLayout = view.findViewById(R.id.follower_layout);
         followerLayout.setOnClickListener(e -> {
             // 프래그먼트 트랜잭션 시작
@@ -106,7 +99,6 @@ public class MyPageFragment extends Fragment {
                                 .into(profileImageView);
                         repoTextview.setText((user.getPublic_repos() + user.getTotal_private_repos()) + "");
                         followerTextView.setText(user.getFollowers() + "");
-                        followingTextView.setText(user.getFollowing() + "");
 
                     }
                 }
