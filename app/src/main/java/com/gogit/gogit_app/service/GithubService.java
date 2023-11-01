@@ -1,6 +1,7 @@
 package com.gogit.gogit_app.service;
 
 import com.gogit.gogit_app.dto.GithubUser;
+import com.gogit.gogit_app.dto.Repository;
 
 import java.util.List;
 
@@ -18,6 +19,12 @@ public interface GithubService {
 
     @GET("users/{login}/followers")
     Call<List<GithubUser>> getFollowers(
+            @Header("Authorization") String auth,
+            @Path("login") String username
+    );
+
+    @GET("users/{login}/repos")
+    Call<List<Repository>> getRepos(
             @Header("Authorization") String auth,
             @Path("login") String username
     );
