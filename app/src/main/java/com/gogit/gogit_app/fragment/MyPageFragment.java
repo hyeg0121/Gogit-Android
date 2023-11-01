@@ -21,12 +21,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.adapter.PostAdapter;
+import com.gogit.gogit_app.adapter.RepoAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
 import com.gogit.gogit_app.client.RetrofitClient;
 import com.gogit.gogit_app.config.Config;
 import com.gogit.gogit_app.config.SessionManager;
 import com.gogit.gogit_app.dto.GithubUser;
 import com.gogit.gogit_app.dto.Post;
+import com.gogit.gogit_app.dto.Repository;
 import com.gogit.gogit_app.service.GithubService;
 import com.gogit.gogit_app.service.MemberService;
 
@@ -39,7 +41,6 @@ import retrofit2.Retrofit;
 
 public class MyPageFragment extends Fragment {
 
-
     public MyPageFragment() {}
 
     @Override
@@ -50,6 +51,7 @@ public class MyPageFragment extends Fragment {
         // 저장된 유저 정보
         SessionManager sessionManager = new SessionManager(getContext());
         String login = sessionManager.getUserId();
+        String token = sessionManager.getToken();
 
         // 유저 정보
         TextView userIdTextView = view.findViewById(R.id.userId);
@@ -73,12 +75,15 @@ public class MyPageFragment extends Fragment {
             transaction.commit();
         });
 
+        // adapter
+
+
 
         // 유저 정보
         Retrofit githubRetrofit = GithubRetrofitClient.getRetrofitInstance();
         GithubService githubService = githubRetrofit.create(GithubService.class);
         Call<GithubUser> userCall = githubService.getUser(
-                "Bearer " + Config.GITHUB_TOKEN, login);
+                "Bearer " + token, login);
 
         // 유저 정보
         userCall.enqueue(new Callback<GithubUser>() {
@@ -121,19 +126,38 @@ public class MyPageFragment extends Fragment {
 
 
         Call<List<Post>> postListCall = memberService.getPostByWriterId(sessionManager.getPk());
-        postListCall.enqueue(new Callback<List<Post>>(){
+//        postListCall.enqueue(new Callback<List<Post>>(){
+//
+//            @Override
+//            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+//                if (response.code() != 404) {
+//                    List<Post> posts = response.body();
+//                    PostAdapter postAdapter = new PostAdapter(posts);
+//                    postsView.setAdapter(new PostAdapter(posts));
+//                    Log.d("my tag", posts.toString());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Post>> call, Throwable t) {
+//                Log.d("my tag", t.getMessage());
+//            }
+//        });
 
+        Call<List<Repository>> repoListCall = githubService.getRepos(
+                "Bearer " + token, login);
+        // 레포 뷰 불러오기
+        repoListCall.enqueue(new Callback<List<Repository>>() {
             @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                if (response.code() != 404) {
-                    List<Post> posts = response.body();
-                    postsView.setAdapter(new PostAdapter(posts));
-                    Log.d("my tag", posts.toString());
-                }
+            public void onResponse(Call<List<Repository>> call, Response<List<Repository>> response) {
+                List<Repository> repos = response.body();
+                RepoAdapter repoAdapter = new RepoAdapter(repos);
+                postsView.setAdapter(new RepoAdapter(repos));
+                Log.d("my tag", repos.toString());
             }
 
             @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
+            public void onFailure(Call<List<Repository>> call, Throwable t) {
                 Log.d("my tag", t.getMessage());
             }
         });
