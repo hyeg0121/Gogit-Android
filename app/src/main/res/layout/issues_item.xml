@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp">
+    <ImageView
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:background="@drawable/issues_icon"
+        android:id="@+id/issues_icon"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:text="haewon1106/WSM_2023"
+            android:textSize="14dp"
+            android:textColor="@color/gray900"
+            android:id="@+id/issues_address"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginTop="3dp"
+            android:textSize="16dp"
+            android:text="오늘 배운 내용 복습하기"
+            android:id="@+id/issues_title"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:layout_alignParentRight="true"
+            android:gravity="end"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@id/issues_check"/>
+    </RelativeLayout>
+</LinearLayout>

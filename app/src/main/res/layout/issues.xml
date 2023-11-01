@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:padding="20dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Issues"
+            android:textSize="24dp"
+            android:textStyle="bold"/>
+        <Spinner
+            android:id="@+id/owner_select"
+            android:layout_marginTop="40dp"
+            android:layout_below="@+id/owner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="이슈 제목을 입력하세요"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border_line_radius"/>
+        <android.widget.Button
+            android:id="@+id/upload_button"
+            android:layout_width="match_parent"
+            android:text="이슈 추가"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_round"
+            android:backgroundTint="@color/gray400"
+            android:layout_marginTop="20dp"
+            android:layout_height="55dp"/>
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/postContainer">
+            <include layout="@layout/issues_item"/>
+            <include layout="@layout/issues_item"/>
+            <include layout="@layout/issues_item"/>
+        </LinearLayout>
+    </ScrollView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        tools:showln="layout/fragment_user"
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:itemTextColor="@color/gray400"
+        app:itemIconSize="25dp"
+        app:labelVisibilityMode="unlabeled"
+        app:itemBackground="@color/white"
+        app:menu="@menu/bottom_menu">
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+</LinearLayout>
