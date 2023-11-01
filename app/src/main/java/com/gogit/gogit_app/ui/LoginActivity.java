@@ -18,7 +18,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login);
 
         SessionManager sessionManager = new SessionManager(getApplicationContext());
-        sessionManager.clearLoginDetails();
+//        sessionManager.clearLoginDetails();
 
         if (sessionManager.getToken() != null
                 && sessionManager.getUserId() != null) {
