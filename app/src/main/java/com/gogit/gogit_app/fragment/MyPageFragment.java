@@ -47,14 +47,18 @@ public class MyPageFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, container, false);
 
+        // 저장된 유저 정보
         SessionManager sessionManager = new SessionManager(getContext());
+        String login = sessionManager.getUserId();
 
+        // 유저 정보
         TextView userIdTextView = view.findViewById(R.id.userId);
         ImageView profileImageView = view.findViewById(R.id.profileImg);
         TextView repoTextview = view.findViewById(R.id.account_repositories);
         TextView followerTextView = view.findViewById(R.id.account_follower);
         TextView usernameTextView = view.findViewById(R.id.userName);
         LinearLayout followerLayout = view.findViewById(R.id.follower_layout);
+
         followerLayout.setOnClickListener(e -> {
             // 프래그먼트 트랜잭션 시작
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -70,14 +74,11 @@ public class MyPageFragment extends Fragment {
         });
 
 
-        // 레트로핏
+        // 유저 정보
         Retrofit githubRetrofit = GithubRetrofitClient.getRetrofitInstance();
-
         GithubService githubService = githubRetrofit.create(GithubService.class);
-        String login = sessionManager.getUserId();
         Call<GithubUser> userCall = githubService.getUser(
                 "Bearer " + Config.GITHUB_TOKEN, login);
-
 
         // 유저 정보
         userCall.enqueue(new Callback<GithubUser>() {
@@ -117,6 +118,8 @@ public class MyPageFragment extends Fragment {
 
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         MemberService memberService = retrofit.create(MemberService.class);
+
+
         Call<List<Post>> postListCall = memberService.getPostByWriterId(sessionManager.getPk());
         postListCall.enqueue(new Callback<List<Post>>(){
 
