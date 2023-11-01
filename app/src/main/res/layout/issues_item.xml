@@ -40,6 +40,6 @@
             android:gravity="end"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:id="@id/issues_check"/>
+            android:id="@+id/issues_check"/>
     </RelativeLayout>
 </LinearLayout>
