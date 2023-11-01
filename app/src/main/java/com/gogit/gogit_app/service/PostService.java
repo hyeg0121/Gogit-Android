@@ -9,6 +9,6 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface PostService {
-    @POST("api/posts")
+    @POST("/posts")
     Call<Post> createdPost(@Body AddPostRequest addPostRequest);
 }
