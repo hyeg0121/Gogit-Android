@@ -102,26 +102,28 @@
                         android:layout_marginLeft="5dp"
                         android:id="@+id/account_forked"/>
                 </LinearLayout>
+
                 <LinearLayout
-                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    >
+                    android:gravity="center_vertical">
+
                     <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_toLeftOf="@+id/account_star"
-                        android:backgroundTint="@color/gray900"
                         android:layout_toRightOf="@+id/forked_container"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/baseline_star_border_24"/>
+                        android:background="@drawable/baseline_star_border_24"
+                        android:backgroundTint="@color/gray900" />
+
                     <TextView
-                        android:layout_alignParentRight="false"
+                        android:id="@+id/account_star"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="false"
                         android:layout_marginLeft="5dp"
-                        android:text="6"
-                        android:id="@+id/account_star"/>
+                        android:text="6" />
                 </LinearLayout>
 
             </RelativeLayout>
