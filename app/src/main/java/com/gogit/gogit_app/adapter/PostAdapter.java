@@ -90,4 +90,9 @@ public class PostAdapter
         }
     }
 
+    public void clear() {
+        data.clear();
+        notifyDataSetChanged();
+    }
+
 }
