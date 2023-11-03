@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.adapter.PostAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
-import com.gogit.gogit_app.client.RetrofitClient;
+import com.gogit.gogit_app.client.MemberRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
 import com.gogit.gogit_app.dto.Post;
 import com.gogit.gogit_app.service.MemberService;
@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
         postsView.setHasFixedSize(false);
         postsView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        Retrofit retrofit = MemberRetrofitClient.getRetrofitInstance();
         MemberService memberService = retrofit.create(MemberService.class);
         Call<List<Post>> postListCall = memberService.getPostByWriterId(sessionManager.getPk());
         postListCall.enqueue(new Callback<List<Post>>(){

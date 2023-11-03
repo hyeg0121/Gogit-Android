@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.gogit.gogit_app.R;
-import com.gogit.gogit_app.client.RetrofitClient;
+import com.gogit.gogit_app.client.MemberRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
 import com.gogit.gogit_app.dto.AddPostRequest;
 import com.gogit.gogit_app.dto.Member;
@@ -44,7 +44,7 @@ public class CreatePostFragment extends Fragment {
         Button uploadButton = view.findViewById(R.id.upload_button);
 
         // retrofit
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        Retrofit retrofit = MemberRetrofitClient.getRetrofitInstance();
         PostService postService = retrofit.create(PostService.class);
 
         uploadButton.setOnClickListener(e -> {

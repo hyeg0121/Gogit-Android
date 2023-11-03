@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,11 +19,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gogit.gogit_app.R;
-import com.gogit.gogit_app.adapter.PostAdapter;
 import com.gogit.gogit_app.adapter.RepoAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
-import com.gogit.gogit_app.client.RetrofitClient;
-import com.gogit.gogit_app.config.Config;
+import com.gogit.gogit_app.client.MemberRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
 import com.gogit.gogit_app.dto.GithubUser;
 import com.gogit.gogit_app.dto.Post;
@@ -121,7 +118,7 @@ public class MyPageFragment extends Fragment {
         postsView.setHasFixedSize(false);
         postsView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        Retrofit retrofit = MemberRetrofitClient.getRetrofitInstance();
         MemberService memberService = retrofit.create(MemberService.class);
 
 

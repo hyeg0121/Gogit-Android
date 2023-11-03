@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.gogit.gogit_app.R;
-import com.gogit.gogit_app.client.RetrofitClient;
+import com.gogit.gogit_app.client.MemberRetrofitClient;
 import com.gogit.gogit_app.config.Config;
 import com.gogit.gogit_app.config.SessionManager;
 import com.gogit.gogit_app.dto.Member;
@@ -39,7 +39,7 @@ public class TokenActivity extends AppCompatActivity {
         }
 
         // 레트로핏과 서비스 인스턴스
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        Retrofit retrofit = MemberRetrofitClient.getRetrofitInstance();
         MemberService  memberService = retrofit.create(MemberService.class);
 
         // 뷰 가져오기
