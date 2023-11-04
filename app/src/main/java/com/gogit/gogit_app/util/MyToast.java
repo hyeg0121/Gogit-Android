@@ -8,5 +8,10 @@ public class MyToast {
     public static void showToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
+
+    public static void showNetworkErrorToast(Context context) {
+        Toast.makeText(context, "네트워크가 불안정합니다.", Toast.LENGTH_SHORT).show();
+    }
+
 }
 
