@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,7 +44,6 @@ import retrofit2.Retrofit;
 
 public class MyPageFragment extends Fragment {
 
-
     // view
     TextView userIdTextView;
     ImageView profileImageView;
@@ -52,6 +52,10 @@ public class MyPageFragment extends Fragment {
     TextView usernameTextView;
     LinearLayout followerLayout;
     RecyclerView postsView;
+    RecyclerView reposView;
+    ImageButton repImageButton;
+    ImageButton postImageButton;
+
 
     public MyPageFragment() {}
 
@@ -73,6 +77,10 @@ public class MyPageFragment extends Fragment {
         followerTextView = view.findViewById(R.id.account_follower);
         usernameTextView = view.findViewById(R.id.userName);
         followerLayout = view.findViewById(R.id.follower_layout);
+        repImageButton = view.findViewById(R.id.rep_image_button);
+        postImageButton = view.findViewById(R.id.post_image_button);
+        reposView = view.findViewById(R.id.repo_recyclerview);
+        postsView = view.findViewById(R.id.post_recyclerview);
 
         followerLayout.setOnClickListener(e -> {
             FragmentHelper.replaceFragment(getActivity().getSupportFragmentManager(),
@@ -80,17 +88,31 @@ public class MyPageFragment extends Fragment {
                     new FollowerFragment());
         });
 
-        // user 정보 보여주기
-        loadAndSetUserInfo(token, login);
-        loadAndSetPosts(pk);
-        loadAndSetRepos(token, login);
 
+        repImageButton.setOnClickListener(e -> {
+            reposView.setVisibility(View.VISIBLE);
+            postsView.setVisibility(View.GONE);
+            Log.d("my tag", "rep click");
+        });
 
-        // 글 정보 불러오기
-        postsView = view.findViewById(R.id.post_recyclerview);
+        postImageButton.setOnClickListener(e -> {
+            reposView.setVisibility(View.GONE);
+            postsView.setVisibility(View.VISIBLE);
+            Log.d("my tag", "post click");
+        });
+
+        // 글 리사이클러 뷰
         postsView.setHasFixedSize(false);
         postsView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        // 리포 리사이클러 뷰
+        reposView.setHasFixedSize(false);
+        reposView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+        loadAndSetUserInfo(token, login);
+        loadAndSetPosts(pk);
+        loadAndSetRepos(token, login);
 
         return view;
     }
@@ -173,7 +195,7 @@ public class MyPageFragment extends Fragment {
             public void onResponse(Call<List<Repository>> call, Response<List<Repository>> response) {
                 List<Repository> repos = response.body();
                 RepoAdapter repoAdapter = new RepoAdapter(repos);
-                postsView.setAdapter(new RepoAdapter(repos));
+                reposView.setAdapter(new RepoAdapter(repos));
                 Log.d("my tag", repos.toString());
             }
 
