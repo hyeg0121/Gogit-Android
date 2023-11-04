@@ -120,7 +120,7 @@
             android:layout_height="60dp"
             android:background="@drawable/button_underline">
             <ImageButton
-                android:id="@+id/rep"
+                android:id="@+id/rep_image_button"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:background="@drawable/select_post_btn"
@@ -130,7 +130,7 @@
                 android:paddingBottom="17dp"
                 android:layout_weight="1"/>
             <ImageButton
-                android:id="@+id/post"
+                android:id="@+id/post_image_button"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:background="@drawable/select_post_btn"
@@ -142,6 +142,15 @@
         </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/post_recyclerview"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/repo_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
