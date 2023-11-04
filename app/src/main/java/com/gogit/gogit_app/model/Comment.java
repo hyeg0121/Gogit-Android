@@ -1,4 +1,4 @@
-package com.gogit.gogit_app.dto;
+package com.gogit.gogit_app.model;
 
 public class Comment {
     private final Long id;

@@ -3,8 +3,6 @@ package com.gogit.gogit_app.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,14 +19,17 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.adapter.PostAdapter;
+import com.gogit.gogit_app.adapter.RepoAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
-import com.gogit.gogit_app.client.RetrofitClient;
-import com.gogit.gogit_app.config.Config;
+import com.gogit.gogit_app.client.PostRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
-import com.gogit.gogit_app.dto.GithubUser;
-import com.gogit.gogit_app.dto.Post;
+import com.gogit.gogit_app.model.GithubUser;
+import com.gogit.gogit_app.model.Post;
+import com.gogit.gogit_app.model.Repository;
 import com.gogit.gogit_app.service.GithubService;
-import com.gogit.gogit_app.service.MemberService;
+import com.gogit.gogit_app.service.PostService;
+import com.gogit.gogit_app.ui.FragmentHelper;
+import com.gogit.gogit_app.util.MyToast;
 
 import java.util.List;
 
@@ -39,6 +40,19 @@ import retrofit2.Retrofit;
 
 public class MyPageFragment extends Fragment {
 
+    // view
+    TextView userIdTextView;
+    ImageView profileImageView;
+    TextView repoTextview;
+    TextView followerTextView;
+    TextView usernameTextView;
+    LinearLayout followerLayout;
+    TextView orgCountTextView;
+    RecyclerView postsView;
+    RecyclerView reposView;
+    ImageButton repImageButton;
+    ImageButton postImageButton;
+
 
     public MyPageFragment() {}
 
@@ -47,93 +61,148 @@ public class MyPageFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, container, false);
 
+        // 저장된 유저 정보
         SessionManager sessionManager = new SessionManager(getContext());
+        String login = sessionManager.getUserId();
+        String token = sessionManager.getToken();
+        Long pk = sessionManager.getPk();
 
-        TextView userIdTextView = view.findViewById(R.id.userId);
-        ImageView profileImageView = view.findViewById(R.id.profileImg);
-        TextView repoTextview = view.findViewById(R.id.account_repositories);
-        TextView followerTextView = view.findViewById(R.id.account_follower);
-        TextView usernameTextView = view.findViewById(R.id.userName);
-        LinearLayout followerLayout = view.findViewById(R.id.follower_layout);
+        // 뷰
+        userIdTextView = view.findViewById(R.id.userId);
+        profileImageView = view.findViewById(R.id.profileImg);
+        repoTextview = view.findViewById(R.id.account_repositories);
+        followerTextView = view.findViewById(R.id.account_follower);
+        usernameTextView = view.findViewById(R.id.userName);
+        followerLayout = view.findViewById(R.id.follower_layout);
+        orgCountTextView = view.findViewById(R.id.account_organization);
+        repImageButton = view.findViewById(R.id.rep_image_button);
+        postImageButton = view.findViewById(R.id.post_image_button);
+        reposView = view.findViewById(R.id.repo_recyclerview);
+        postsView = view.findViewById(R.id.post_recyclerview);
+
         followerLayout.setOnClickListener(e -> {
-            // 프래그먼트 트랜잭션 시작
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-            // Follower 프래그먼트를 생성하고 추가
-            FollowerFragment followerFragment = new FollowerFragment();
-            transaction.replace(R.id.containers, followerFragment);
-            transaction.addToBackStack(null); // 이전 상태를 백 스택에 추가
-
-            // 트랜잭션 커밋
-            transaction.commit();
+            FragmentHelper.replaceFragment(getActivity().getSupportFragmentManager(),
+                    R.id.containers,
+                    new FollowerFragment());
         });
 
 
-        // 레트로핏
-        Retrofit githubRetrofit = GithubRetrofitClient.getRetrofitInstance();
+        repImageButton.setOnClickListener(e -> {
+            reposView.setVisibility(View.VISIBLE);
+            postsView.setVisibility(View.GONE);
+            Log.d("my tag", "rep click");
+        });
 
-        GithubService githubService = githubRetrofit.create(GithubService.class);
-        String login = sessionManager.getUserId();
-        Call<GithubUser> userCall = githubService.getUser(
-                "Bearer " + Config.GITHUB_TOKEN, login);
+        postImageButton.setOnClickListener(e -> {
+            reposView.setVisibility(View.GONE);
+            postsView.setVisibility(View.VISIBLE);
+            Log.d("my tag", "post click");
+        });
+
+        // 글 리사이클러 뷰
+        postsView.setHasFixedSize(false);
+        postsView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // 리포 리사이클러 뷰
+        reposView.setHasFixedSize(false);
+        reposView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
+        loadAndSetUserInfo(token, login);
+        loadAndSetPosts(pk);
+        loadAndSetRepos(token, login);
+
+        return view;
+    }
+
+    // 유저 정보 api요청
+    private void loadAndSetUserInfo(String token, String login) {
         // 유저 정보
+        Retrofit githubRetrofit = GithubRetrofitClient.getRetrofitInstance();
+        GithubService githubService = githubRetrofit.create(GithubService.class);
+        Call<GithubUser> userCall = githubService.getUser("Bearer " + token, login);
+
+        // 유저 정보 가져오기
         userCall.enqueue(new Callback<GithubUser>() {
             @Override
             public void onResponse(Call<GithubUser> call, Response<GithubUser> response) {
                 if (response.code() == 404) {
-
+                    // 오류 처리
                 } else {
-                    GithubUser user = (GithubUser) response.body();
-                    Log.d("my tag", user.toString());
+                    GithubUser user = response.body();
                     if (user != null) {
-                        userIdTextView.setText(user.getLogin());
-                        usernameTextView.setText(user.getName());
-                        Glide.with(getContext())
-                                .load(user.getAvatar_url())
-                                .apply(RequestOptions.circleCropTransform())
-                                .error(R.drawable.git_logo)
-                                .placeholder(R.drawable.git_logo)
-                                .into(profileImageView);
-                        repoTextview.setText((user.getPublic_repos() + user.getTotal_private_repos()) + "");
-                        followerTextView.setText(user.getFollowers() + "");
-
+                        setUserInfo(user);
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<GithubUser> call, Throwable t) {
-                Log.d("my tag", t.getMessage());
+                MyToast.showNetworkErrorToast(getContext());
             }
         });
+    }
 
-        // 글 정보 불러오기
-        RecyclerView postsView = view.findViewById(R.id.post_recyclerview);
-        postsView.setHasFixedSize(false);
-        postsView.setLayoutManager(new LinearLayoutManager(getContext()));
+    // 뷰에 정보 할당
+    private void setUserInfo(GithubUser user) {
+        userIdTextView.setText(user.getLogin());
+        usernameTextView.setText(user.getName());
+        Glide.with(getContext())
+                .load(user.getAvatar_url())
+                .apply(RequestOptions.circleCropTransform())
+                .error(R.drawable.git_logo)
+                .placeholder(R.drawable.git_logo)
+                .into(profileImageView);
+        repoTextview.setText((user.getPublic_repos() + user.getTotal_private_repos()) + "");
+        followerTextView.setText(user.getFollowers() + "");
+        // TODO: 오가니제이션 어떻게 해야할지 고민해보기
+        orgCountTextView.setText("3");
+    }
 
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
-        MemberService memberService = retrofit.create(MemberService.class);
-        Call<List<Post>> postListCall = memberService.getPostByWriterId(sessionManager.getPk());
+    private void loadAndSetPosts(Long pk) {
+        Retrofit retrofit = PostRetrofitClient.getRetrofitInstance();
+        PostService postService = retrofit.create(PostService.class);
+
+        Call<List<Post>> postListCall = postService.getMembersAllPosts(pk);
         postListCall.enqueue(new Callback<List<Post>>(){
-
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
                 if (response.code() != 404) {
                     List<Post> posts = response.body();
-                    postsView.setAdapter(new PostAdapter(posts));
+                    PostAdapter postAdapter = new PostAdapter(posts);
+                    postsView.setAdapter(postAdapter);
                     Log.d("my tag", posts.toString());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
+                MyToast.showNetworkErrorToast(getContext());
                 Log.d("my tag", t.getMessage());
             }
         });
-        return view;
+    }
+
+    private void loadAndSetRepos(String token, String login) {
+        Retrofit githubRetrofit = GithubRetrofitClient.getRetrofitInstance();
+        GithubService githubService = githubRetrofit.create(GithubService.class);
+
+        Call<List<Repository>> call = githubService.getRepos(
+                "Bearer " + token, login);
+        // 레포 뷰 불러오기
+        call.enqueue(new Callback<List<Repository>>() {
+            @Override
+            public void onResponse(Call<List<Repository>> call, Response<List<Repository>> response) {
+                List<Repository> repos = response.body();
+                RepoAdapter repoAdapter = new RepoAdapter(repos);
+                reposView.setAdapter(new RepoAdapter(repos));
+                Log.d("my tag", repos.toString());
+            }
+
+            @Override
+            public void onFailure(Call<List<Repository>> call, Throwable t) {
+                Log.d("my tag", t.getMessage());
+            }
+        });
     }
 }

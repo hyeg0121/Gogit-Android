@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gogit.gogit_app.R;
-import com.gogit.gogit_app.dto.Post;
+import com.gogit.gogit_app.model.Post;
 
 import java.util.List;
 
@@ -64,17 +64,6 @@ public class PostAdapter
         }
         contentTextView.setText(post.getContents());
 
-        if (post.getComment() == null) {
-            commentCount.setText("0");
-        } else {
-            commentCount.setText(post.getComment().size());
-        }
-
-        if (post.getLikedMembers() == null) {
-            likeCount.setText("0");
-        } else {
-            likeCount.setText(post.getLikedMembers().size());
-        }
     }
 
     @Override
@@ -88,6 +77,11 @@ public class PostAdapter
             super(itemView);
             this.view = itemView;
         }
+    }
+
+    public void clear() {
+        data.clear();
+        notifyDataSetChanged();
     }
 
 }

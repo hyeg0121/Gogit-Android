@@ -3,14 +3,14 @@ package com.gogit.gogit_app.client;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitClient {
+public class PostRetrofitClient {
     private static Retrofit retrofit;
-    private static final String GITHUB_BASE_URL = "http://10.0.2.2:8080";
+    private static final String BASE_URL = "http://10.0.2.2:3000";
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl(GITHUB_BASE_URL)
+                    .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

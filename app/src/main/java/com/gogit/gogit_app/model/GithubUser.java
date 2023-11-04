@@ -1,6 +1,4 @@
-package com.gogit.gogit_app.dto;
-
-import com.google.gson.annotations.SerializedName;
+package com.gogit.gogit_app.model;
 
 public class GithubUser {
     private String login;

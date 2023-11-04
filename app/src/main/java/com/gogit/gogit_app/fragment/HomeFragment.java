@@ -10,14 +10,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.adapter.PostAdapter;
-import com.gogit.gogit_app.client.GithubRetrofitClient;
-import com.gogit.gogit_app.client.RetrofitClient;
+import com.gogit.gogit_app.client.PostRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
-import com.gogit.gogit_app.dto.Post;
-import com.gogit.gogit_app.service.MemberService;
+import com.gogit.gogit_app.model.Post;
+import com.gogit.gogit_app.service.PostService;
+import com.gogit.gogit_app.ui.FragmentHelper;
+import com.gogit.gogit_app.util.MyToast;
 
 import java.util.List;
 
@@ -28,6 +30,9 @@ import retrofit2.Retrofit;
 
 public class HomeFragment extends Fragment {
 
+    EditText searchEditText;
+    RecyclerView postsView;
+
     public HomeFragment() {
     }
 
@@ -37,17 +42,43 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.home, container, false);
 
         SessionManager sessionManager = new SessionManager(getContext());
+        Long pk = sessionManager.getPk();
 
-        Retrofit githubRetrofit = GithubRetrofitClient.getRetrofitInstance();
+        searchEditText = view.findViewById(R.id.search);
+        searchEditText.setOnEditorActionListener((v, actionId, event) -> {
+            String keyword = searchEditText.getText().toString().trim();
 
-        // 글 정보 불러오기
-        RecyclerView postsView = view.findViewById(R.id.post_recyclerview);
+            // 아무것도 검색하지 않았을 때 처리
+            if (keyword.length() == 0) {
+                MyToast.showToast(getContext(), "검색어를 입력하세요.");
+                return false;
+            }
+
+            // 엔터키를 눌렀을 때
+            if (actionId == 0) {
+                SearchResultFragment searchResultFragment = SearchResultFragment.newInstance(keyword);
+                FragmentHelper.replaceFragment(getFragmentManager(),
+                        R.id.containers, searchResultFragment);
+                return true;
+            }
+
+            return false;
+        });
+
+        postsView = view.findViewById(R.id.post_recyclerview);
         postsView.setHasFixedSize(false);
         postsView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
-        MemberService memberService = retrofit.create(MemberService.class);
-        Call<List<Post>> postListCall = memberService.getPostByWriterId(sessionManager.getPk());
+        // 글 정보 불러오기
+        loadAndSetPosts();
+
+        return view;
+    }
+
+    private void loadAndSetPosts() {
+        Retrofit retrofit = PostRetrofitClient.getRetrofitInstance();
+        PostService postService = retrofit.create(PostService.class);
+        Call<List<Post>> postListCall = postService.getAllPosts();
         postListCall.enqueue(new Callback<List<Post>>(){
 
             @Override
@@ -64,6 +95,5 @@ public class HomeFragment extends Fragment {
                 Log.d("my tag", t.getMessage());
             }
         });
-        return view;
     }
 }
