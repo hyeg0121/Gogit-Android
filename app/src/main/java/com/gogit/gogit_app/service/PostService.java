@@ -9,6 +9,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface PostService {
     @POST("/posts")
@@ -16,4 +17,9 @@ public interface PostService {
 
     @GET("/posts")
     Call<List<Post>> getAllPosts();
+
+    @GET("/posts/member/{pk}")
+    Call<List<Post>> getMembersAllPosts(
+            @Path("pk") Long pk
+    );
 }

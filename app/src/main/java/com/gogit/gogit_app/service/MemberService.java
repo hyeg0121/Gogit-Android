@@ -16,6 +16,4 @@ public interface MemberService {
     @POST("/members")
     Call<Member> createMember(@Body MemberSignInRequest memberSignInRequest);
 
-    @GET("/members/{memberId}/posts")
-    Call<List<Post>> getPostByWriterId(@Path("memberId") Long memberId);
 }
