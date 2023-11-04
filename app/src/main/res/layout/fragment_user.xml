@@ -169,6 +169,4 @@
         android:scrollbars="none">
     </androidx.recyclerview.widget.RecyclerView>
 
-   
-
 </LinearLayout>
