@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:id="@+id/profile"
             android:layout_marginRight="15dp"/>
         <LinearLayout
-            android:layout_toRightOf="@+id/profile"
+            android:layout_toRightOf="@id/profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/user_container">
@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:text="HeyKyung"
                 android:textSize="18dp"
-                android:id="@+id/user_name"
+                android:id="@+id/user_id"
                 android:layout_marginRight="5dp"
                 android:textStyle="bold"/>
             <TextView
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray900"
                 android:text="hyeg0121"
-                android:id="@+id/user_id"/>
+                android:id="@+id/user_name"/>
         </LinearLayout>
         <TextView
             android:layout_marginTop="10dp"
