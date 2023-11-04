@@ -1,5 +1,6 @@
 package com.gogit.gogit_app.service;
 
+import com.gogit.gogit_app.model.SearchedUser;
 import com.gogit.gogit_app.request.AddRepositoryRequest;
 import com.gogit.gogit_app.model.GithubUser;
 import com.gogit.gogit_app.model.Repository;
@@ -41,7 +42,7 @@ public interface GithubService {
     );
 
     @GET("/search/users")
-    Call<List<Map<String, Object>>> getUserSearchResult(
+    Call<SearchedUser> getUserSearchResult(
             @Header("Authorization") String auth,
             @Query("q") String keyword,
             @Query("sort") String sort,
