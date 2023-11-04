@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gogit.gogit_app.R;
-import com.gogit.gogit_app.domain.Repository;
+import com.gogit.gogit_app.model.Repository;
 
 import java.util.List;
 

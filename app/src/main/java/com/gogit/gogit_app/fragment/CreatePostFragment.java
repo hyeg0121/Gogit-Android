@@ -17,8 +17,8 @@ import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.client.MemberRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
 import com.gogit.gogit_app.request.AddPostRequest;
-import com.gogit.gogit_app.domain.Member;
-import com.gogit.gogit_app.domain.Post;
+import com.gogit.gogit_app.model.Member;
+import com.gogit.gogit_app.model.Post;
 import com.gogit.gogit_app.service.PostService;
 import com.gogit.gogit_app.util.MyToast;
 

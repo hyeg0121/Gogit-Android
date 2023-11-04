@@ -1,6 +1,6 @@
 package com.gogit.gogit_app.service;
 
-import com.gogit.gogit_app.domain.Member;
+import com.gogit.gogit_app.model.Member;
 import com.gogit.gogit_app.request.MemberSignInRequest;
 
 import retrofit2.Call;

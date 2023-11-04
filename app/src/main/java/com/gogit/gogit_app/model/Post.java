@@ -1,4 +1,4 @@
-package com.gogit.gogit_app.domain;
+package com.gogit.gogit_app.model;
 
 import java.util.Date;
 import java.util.List;

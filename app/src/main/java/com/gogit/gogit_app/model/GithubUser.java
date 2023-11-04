@@ -1,4 +1,4 @@
-package com.gogit.gogit_app.domain;
+package com.gogit.gogit_app.model;
 
 public class GithubUser {
     private String login;

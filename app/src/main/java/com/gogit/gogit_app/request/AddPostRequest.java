@@ -1,6 +1,6 @@
 package com.gogit.gogit_app.request;
 
-import com.gogit.gogit_app.domain.Member;
+import com.gogit.gogit_app.model.Member;
 
 public class AddPostRequest {
     private final Member writer;

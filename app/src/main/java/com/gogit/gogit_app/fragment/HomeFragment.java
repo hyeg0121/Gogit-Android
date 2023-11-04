@@ -10,13 +10,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.adapter.PostAdapter;
 import com.gogit.gogit_app.client.PostRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
-import com.gogit.gogit_app.domain.Post;
+import com.gogit.gogit_app.model.Post;
 import com.gogit.gogit_app.service.PostService;
+import com.gogit.gogit_app.ui.FragmentHelper;
+import com.gogit.gogit_app.util.MyToast;
 
 import java.util.List;
 
@@ -27,6 +30,7 @@ import retrofit2.Retrofit;
 
 public class HomeFragment extends Fragment {
 
+    EditText searchEditText;
     RecyclerView postsView;
 
     public HomeFragment() {
@@ -39,6 +43,27 @@ public class HomeFragment extends Fragment {
 
         SessionManager sessionManager = new SessionManager(getContext());
         Long pk = sessionManager.getPk();
+
+        searchEditText = view.findViewById(R.id.search);
+        searchEditText.setOnEditorActionListener((v, actionId, event) -> {
+            String keyword = searchEditText.getText().toString().trim();
+
+            // 아무것도 검색하지 않았을 때 처리
+            if (keyword.length() == 0) {
+                MyToast.showToast(getContext(), "검색어를 입력하세요.");
+                return false;
+            }
+
+            // 엔터키를 눌렀을 때
+            if (actionId == 0) {
+                SearchResultFragment searchResultFragment = SearchResultFragment.newInstance(keyword);
+                FragmentHelper.replaceFragment(getFragmentManager(),
+                        R.id.containers, searchResultFragment);
+                return true;
+            }
+
+            return false;
+        });
 
         postsView = view.findViewById(R.id.post_recyclerview);
         postsView.setHasFixedSize(false);

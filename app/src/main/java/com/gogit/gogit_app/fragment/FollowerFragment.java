@@ -19,7 +19,7 @@ import com.gogit.gogit_app.adapter.FollowerAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
 import com.gogit.gogit_app.config.Config;
 import com.gogit.gogit_app.config.SessionManager;
-import com.gogit.gogit_app.domain.GithubUser;
+import com.gogit.gogit_app.model.GithubUser;
 import com.gogit.gogit_app.service.GithubService;
 
 import java.util.List;

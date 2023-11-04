@@ -23,9 +23,9 @@ import com.gogit.gogit_app.adapter.RepoAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
 import com.gogit.gogit_app.client.PostRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
-import com.gogit.gogit_app.domain.GithubUser;
-import com.gogit.gogit_app.domain.Post;
-import com.gogit.gogit_app.domain.Repository;
+import com.gogit.gogit_app.model.GithubUser;
+import com.gogit.gogit_app.model.Post;
+import com.gogit.gogit_app.model.Repository;
 import com.gogit.gogit_app.service.GithubService;
 import com.gogit.gogit_app.service.PostService;
 import com.gogit.gogit_app.ui.FragmentHelper;
@@ -187,10 +187,10 @@ public class MyPageFragment extends Fragment {
         Retrofit githubRetrofit = GithubRetrofitClient.getRetrofitInstance();
         GithubService githubService = githubRetrofit.create(GithubService.class);
 
-        Call<List<Repository>> repoListCall = githubService.getRepos(
+        Call<List<Repository>> call = githubService.getRepos(
                 "Bearer " + token, login);
         // 레포 뷰 불러오기
-        repoListCall.enqueue(new Callback<List<Repository>>() {
+        call.enqueue(new Callback<List<Repository>>() {
             @Override
             public void onResponse(Call<List<Repository>> call, Response<List<Repository>> response) {
                 List<Repository> repos = response.body();

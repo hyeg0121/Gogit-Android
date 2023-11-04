@@ -1,7 +1,7 @@
 package com.gogit.gogit_app.service;
 
 import com.gogit.gogit_app.request.AddPostRequest;
-import com.gogit.gogit_app.domain.Post;
+import com.gogit.gogit_app.model.Post;
 
 import java.util.List;
 
