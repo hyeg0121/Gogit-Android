@@ -38,16 +38,24 @@
                 android:layout_height="wrap_content"
                 android:text="사용자"/>
 
-            <include layout="@layout/search_user"/>
-
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/user_search_recyclerview">
+            </androidx.recyclerview.widget.RecyclerView>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="리포지토리"
                 android:layout_marginTop="40dp"/>
 
-            <include layout="@layout/search_repository"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/repo_search_recyclerview">
+            </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
-
     </ScrollView>
 </LinearLayout>
