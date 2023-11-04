@@ -2,13 +2,16 @@ package com.gogit.gogit_app.dto;
 
 
 public class Member {
-    private final Long id;
-    private final String githubId;
-    private final String githubToken;
+    private Long id;
+    private String githubId;
+    private String githubToken;
 
     private String avatarUrl;
     private String htmlUrl;
 
+    public Member() {
+
+    }
     public Member(Long id, String githubId, String githubToken) {
         this.id = id;
         this.githubId = githubId;
@@ -41,6 +44,22 @@ public class Member {
 
     public String getGithubToken() {
         return githubToken;
+    }
+
+    public void setGithubId(String githubId) {
+        this.githubId = githubId;
+    }
+
+    public void setGithubToken(String githubToken) {
+        this.githubToken = githubToken;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public void setHtmlUrl(String htmlUrl) {
+        this.htmlUrl = htmlUrl;
     }
 
     @Override
