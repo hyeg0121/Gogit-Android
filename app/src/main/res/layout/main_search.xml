@@ -23,32 +23,31 @@
         android:layout_height="1dp"
         android:background="@color/gray400"
         android:layout_marginTop="20dp"/>
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:orientation="vertical"
-        android:id="@+id/user_container">
-
-        <TextView
+        android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="사용자"/>
+            android:padding="20dp"
+            android:orientation="vertical"
+            android:id="@+id/user_container">
 
-        <include layout="@layout/search_user"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:orientation="vertical"
-        android:id="@+id/repository_container">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="사용자"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="리포지토리"/>
+            <include layout="@layout/search_user"/>
 
-        <include layout="@layout/search_repository"/>
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="리포지토리"
+                android:layout_marginTop="40dp"/>
+
+            <include layout="@layout/search_repository"/>
+        </LinearLayout>
+
+    </ScrollView>
 </LinearLayout>
