@@ -15,9 +15,11 @@ import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.adapter.PostAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
 import com.gogit.gogit_app.client.MemberRetrofitClient;
+import com.gogit.gogit_app.client.PostRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
 import com.gogit.gogit_app.dto.Post;
 import com.gogit.gogit_app.service.MemberService;
+import com.gogit.gogit_app.service.PostService;
 
 import java.util.List;
 
@@ -28,6 +30,8 @@ import retrofit2.Retrofit;
 
 public class HomeFragment extends Fragment {
 
+    RecyclerView postsView;
+
     public HomeFragment() {
     }
 
@@ -37,17 +41,22 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.home, container, false);
 
         SessionManager sessionManager = new SessionManager(getContext());
+        Long pk = sessionManager.getPk();
 
-        Retrofit githubRetrofit = GithubRetrofitClient.getRetrofitInstance();
-
-        // 글 정보 불러오기
-        RecyclerView postsView = view.findViewById(R.id.post_recyclerview);
+        postsView = view.findViewById(R.id.post_recyclerview);
         postsView.setHasFixedSize(false);
         postsView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Retrofit retrofit = MemberRetrofitClient.getRetrofitInstance();
-        MemberService memberService = retrofit.create(MemberService.class);
-        Call<List<Post>> postListCall = memberService.getPostByWriterId(sessionManager.getPk());
+        // 글 정보 불러오기
+        loadAndSetPosts();
+
+        return view;
+    }
+
+    private void loadAndSetPosts() {
+        Retrofit retrofit = PostRetrofitClient.getRetrofitInstance();
+        PostService postService = retrofit.create(PostService.class);
+        Call<List<Post>> postListCall = postService.getAllPosts();
         postListCall.enqueue(new Callback<List<Post>>(){
 
             @Override
@@ -64,6 +73,5 @@ public class HomeFragment extends Fragment {
                 Log.d("my tag", t.getMessage());
             }
         });
-        return view;
     }
 }
