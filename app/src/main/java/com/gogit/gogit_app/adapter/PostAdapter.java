@@ -64,17 +64,6 @@ public class PostAdapter
         }
         contentTextView.setText(post.getContents());
 
-        if (post.getComment() == null) {
-            commentCount.setText("0");
-        } else {
-            commentCount.setText(post.getComment().size());
-        }
-
-        if (post.getLikedMembers() == null) {
-            likeCount.setText("0");
-        } else {
-            likeCount.setText(post.getLikedMembers().size());
-        }
     }
 
     @Override
