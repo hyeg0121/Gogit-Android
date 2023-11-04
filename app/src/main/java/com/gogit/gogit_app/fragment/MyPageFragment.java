@@ -3,8 +3,6 @@ package com.gogit.gogit_app.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,14 +24,12 @@ import com.gogit.gogit_app.client.GithubRetrofitClient;
 import com.gogit.gogit_app.client.PostRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
 import com.gogit.gogit_app.dto.GithubUser;
-import com.gogit.gogit_app.dto.Member;
 import com.gogit.gogit_app.dto.Post;
 import com.gogit.gogit_app.dto.Repository;
 import com.gogit.gogit_app.service.GithubService;
-import com.gogit.gogit_app.service.MemberService;
+import com.gogit.gogit_app.service.PostService;
 import com.gogit.gogit_app.ui.FragmentHelper;
 import com.gogit.gogit_app.util.MyToast;
-import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -161,23 +157,23 @@ public class MyPageFragment extends Fragment {
 
     private void loadAndSetPosts(Long pk) {
         Retrofit retrofit = PostRetrofitClient.getRetrofitInstance();
-        MemberService memberService = retrofit.create(MemberService.class);
+        PostService postService = retrofit.create(PostService.class);
 
-        Call<List<Post>> postListCall = memberService.getPostByWriterId(pk);
+        Call<List<Post>> postListCall = postService.getMembersAllPosts(pk);
         postListCall.enqueue(new Callback<List<Post>>(){
-
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
                 if (response.code() != 404) {
                     List<Post> posts = response.body();
                     PostAdapter postAdapter = new PostAdapter(posts);
-                    postsView.setAdapter(new PostAdapter(posts));
+                    postsView.setAdapter(postAdapter);
                     Log.d("my tag", posts.toString());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
+                MyToast.showNetworkErrorToast(getContext());
                 Log.d("my tag", t.getMessage());
             }
         });
