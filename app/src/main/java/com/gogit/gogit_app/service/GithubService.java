@@ -1,5 +1,6 @@
 package com.gogit.gogit_app.service;
 
+import com.gogit.gogit_app.model.SearchedRepo;
 import com.gogit.gogit_app.model.SearchedUser;
 import com.gogit.gogit_app.request.AddRepositoryRequest;
 import com.gogit.gogit_app.model.GithubUser;
@@ -45,7 +46,13 @@ public interface GithubService {
     Call<SearchedUser> getUserSearchResult(
             @Header("Authorization") String auth,
             @Query("q") String keyword,
-            @Query("sort") String sort,
+            @Query("per_page") Integer perPage
+    );
+
+    @GET("/search/repositories")
+    Call<SearchedRepo> getRepoSearchResult(
+            @Header("Authorization") String auth,
+            @Query("q") String keyword,
             @Query("per_page") Integer perPage
     );
 }
