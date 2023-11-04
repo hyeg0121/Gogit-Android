@@ -79,13 +79,13 @@
                 android:id="@+id/repository_name"/>
             <EditText
                 android:id="@+id/name_editText"
-                android:layout_toRightOf="@+id/repository_name"
+                android:layout_toRightOf="@id/repository_name"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/border_line_radius"
                 android:layout_marginLeft="15dp"/>
             <TextView
-                android:layout_below="@+id/repository_name"
+                android:layout_below="@id/repository_name"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
@@ -93,8 +93,9 @@
                 android:text="설명"
                 android:id="@+id/repository_info"/>
             <EditText
-                android:layout_below="@+id/repository_name"
-                android:layout_toRightOf="@+id/repository_name"
+                android:id="@+id/desc_editText"
+                android:layout_below="@id/repository_name"
+                android:layout_toRightOf="@id/repository_name"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
