@@ -12,9 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gogit.gogit_app.R;
+import com.gogit.gogit_app.adapter.SearchRepoAdapter;
 import com.gogit.gogit_app.adapter.SearchUserAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
+import com.gogit.gogit_app.model.SearchedRepo;
 import com.gogit.gogit_app.model.SearchedUser;
 import com.gogit.gogit_app.service.GithubService;
 import com.gogit.gogit_app.util.MyToast;
@@ -68,14 +70,15 @@ public class SearchResultFragment extends Fragment {
         String token = sessionManager.getToken();
 
         userSearchView = view.findViewById(R.id.user_search_recyclerview);
-        userSearchView.setHasFixedSize(false);
+        userSearchView.setHasFixedSize(true);
         userSearchView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         repoSearchView = view.findViewById(R.id.repo_search_recyclerview);
-        repoSearchView.setHasFixedSize(false);
+        repoSearchView.setHasFixedSize(true);
         repoSearchView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         setUserSearchResult(token, keyword);
+        setRepoSearchResult(token, keyword);
 
         Log.d("my tag", keyword);
         return view;
@@ -87,20 +90,51 @@ public class SearchResultFragment extends Fragment {
         Call<SearchedUser> call = githubService.getUserSearchResult(
                 "Bearer " + token,
                 keyword,
-                "followers",
-                5
+                100
         );
 
         call.enqueue(new Callback<SearchedUser>() {
             @Override
             public void onResponse(Call<SearchedUser> call, Response<SearchedUser> response) {
                 SearchedUser searchedUser = response.body();
-                userSearchView.setAdapter(new SearchUserAdapter(searchedUser.getItems()));
-                Log.d("my tag", searchedUser.getItems().toString());
+                if (searchedUser != null) {
+                    userSearchView.setAdapter(new SearchUserAdapter(searchedUser.getItems()));
+                } else {
+                    MyToast.showToast(getContext(), "유저를 찾을 수 없습니다.");
+                }
+
             }
 
             @Override
             public void onFailure(Call<SearchedUser> call, Throwable t) {
+                MyToast.showNetworkErrorToast(getContext());
+            }
+        });
+    }
+
+    private void setRepoSearchResult(String token, String keyword) {
+        Retrofit retrofit = GithubRetrofitClient.getRetrofitInstance();
+        GithubService githubService = retrofit.create(GithubService.class);
+        Call<SearchedRepo> call = githubService.getRepoSearchResult(
+                "Bearer " + token,
+                keyword,
+                100
+        );
+
+        call.enqueue(new Callback<SearchedRepo>() {
+            @Override
+            public void onResponse(Call<SearchedRepo> call, Response<SearchedRepo> response) {
+                SearchedRepo searchedRepo = response.body();
+                Log.d("my tag", searchedRepo.getItems().toString());
+                if (searchedRepo != null) {
+                    repoSearchView.setAdapter(new SearchRepoAdapter(searchedRepo.getItems()));
+                } else {
+                    MyToast.showToast(getContext(), "유저를 찾을 수 없습니다.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchedRepo> call, Throwable t) {
                 MyToast.showNetworkErrorToast(getContext());
             }
         });
