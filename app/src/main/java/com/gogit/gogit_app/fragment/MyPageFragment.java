@@ -19,15 +19,20 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gogit.gogit_app.R;
+import com.gogit.gogit_app.adapter.PostAdapter;
 import com.gogit.gogit_app.adapter.RepoAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
-import com.gogit.gogit_app.client.MemberRetrofitClient;
+import com.gogit.gogit_app.client.PostRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
 import com.gogit.gogit_app.dto.GithubUser;
+import com.gogit.gogit_app.dto.Member;
 import com.gogit.gogit_app.dto.Post;
 import com.gogit.gogit_app.dto.Repository;
 import com.gogit.gogit_app.service.GithubService;
 import com.gogit.gogit_app.service.MemberService;
+import com.gogit.gogit_app.ui.FragmentHelper;
+import com.gogit.gogit_app.util.MyToast;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -37,6 +42,16 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class MyPageFragment extends Fragment {
+
+
+    // view
+    TextView userIdTextView;
+    ImageView profileImageView;
+    TextView repoTextview;
+    TextView followerTextView;
+    TextView usernameTextView;
+    LinearLayout followerLayout;
+    RecyclerView postsView;
 
     public MyPageFragment() {}
 
@@ -49,97 +64,106 @@ public class MyPageFragment extends Fragment {
         SessionManager sessionManager = new SessionManager(getContext());
         String login = sessionManager.getUserId();
         String token = sessionManager.getToken();
+        Long pk = sessionManager.getPk();
 
-        // 유저 정보
-        TextView userIdTextView = view.findViewById(R.id.userId);
-        ImageView profileImageView = view.findViewById(R.id.profileImg);
-        TextView repoTextview = view.findViewById(R.id.account_repositories);
-        TextView followerTextView = view.findViewById(R.id.account_follower);
-        TextView usernameTextView = view.findViewById(R.id.userName);
-        LinearLayout followerLayout = view.findViewById(R.id.follower_layout);
+        // 뷰
+        userIdTextView = view.findViewById(R.id.userId);
+        profileImageView = view.findViewById(R.id.profileImg);
+        repoTextview = view.findViewById(R.id.account_repositories);
+        followerTextView = view.findViewById(R.id.account_follower);
+        usernameTextView = view.findViewById(R.id.userName);
+        followerLayout = view.findViewById(R.id.follower_layout);
 
         followerLayout.setOnClickListener(e -> {
-            // 프래그먼트 트랜잭션 시작
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-            // Follower 프래그먼트를 생성하고 추가
-            FollowerFragment followerFragment = new FollowerFragment();
-            transaction.replace(R.id.containers, followerFragment);
-            transaction.addToBackStack(null); // 이전 상태를 백 스택에 추가
-
-            // 트랜잭션 커밋
-            transaction.commit();
+            FragmentHelper.replaceFragment(getActivity().getSupportFragmentManager(),
+                    R.id.containers,
+                    new FollowerFragment());
         });
 
-        // adapter
+        // user 정보 보여주기
+        loadAndSetUserInfo(token, login);
+        loadAndSetPosts(pk);
+        loadAndSetRepos(token, login);
 
 
+        // 글 정보 불러오기
+        postsView = view.findViewById(R.id.post_recyclerview);
+        postsView.setHasFixedSize(false);
+        postsView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+
+        return view;
+    }
+
+    // 유저 정보 api요청
+    private void loadAndSetUserInfo(String token, String login) {
         // 유저 정보
         Retrofit githubRetrofit = GithubRetrofitClient.getRetrofitInstance();
         GithubService githubService = githubRetrofit.create(GithubService.class);
-        Call<GithubUser> userCall = githubService.getUser(
-                "Bearer " + token, login);
+        Call<GithubUser> userCall = githubService.getUser("Bearer " + token, login);
 
-        // 유저 정보
+        // 유저 정보 가져오기
         userCall.enqueue(new Callback<GithubUser>() {
             @Override
             public void onResponse(Call<GithubUser> call, Response<GithubUser> response) {
                 if (response.code() == 404) {
-
+                    // 오류 처리
                 } else {
-                    GithubUser user = (GithubUser) response.body();
-                    Log.d("my tag", user.toString());
+                    GithubUser user = response.body();
                     if (user != null) {
-                        userIdTextView.setText(user.getLogin());
-                        usernameTextView.setText(user.getName());
-                        Glide.with(getContext())
-                                .load(user.getAvatar_url())
-                                .apply(RequestOptions.circleCropTransform())
-                                .error(R.drawable.git_logo)
-                                .placeholder(R.drawable.git_logo)
-                                .into(profileImageView);
-                        repoTextview.setText((user.getPublic_repos() + user.getTotal_private_repos()) + "");
-                        followerTextView.setText(user.getFollowers() + "");
-
+                        setUserInfo(user);
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<GithubUser> call, Throwable t) {
+                MyToast.showNetworkErrorToast(getContext());
+            }
+        });
+    }
+
+    // 뷰에 정보 할당
+    private void setUserInfo(GithubUser user) {
+        userIdTextView.setText(user.getLogin());
+        usernameTextView.setText(user.getName());
+        Glide.with(getContext())
+                .load(user.getAvatar_url())
+                .apply(RequestOptions.circleCropTransform())
+                .error(R.drawable.git_logo)
+                .placeholder(R.drawable.git_logo)
+                .into(profileImageView);
+        repoTextview.setText((user.getPublic_repos() + user.getTotal_private_repos()) + "");
+        followerTextView.setText(user.getFollowers() + "");
+    }
+
+    private void loadAndSetPosts(Long pk) {
+        Retrofit retrofit = PostRetrofitClient.getRetrofitInstance();
+        MemberService memberService = retrofit.create(MemberService.class);
+
+        Call<List<Post>> postListCall = memberService.getPostByWriterId(pk);
+        postListCall.enqueue(new Callback<List<Post>>(){
+
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                if (response.code() != 404) {
+                    List<Post> posts = response.body();
+                    PostAdapter postAdapter = new PostAdapter(posts);
+                    postsView.setAdapter(new PostAdapter(posts));
+                    Log.d("my tag", posts.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
                 Log.d("my tag", t.getMessage());
             }
         });
+    }
 
-        // 글 정보 불러오기
-        RecyclerView postsView = view.findViewById(R.id.post_recyclerview);
-        postsView.setHasFixedSize(false);
-        postsView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        Retrofit retrofit = MemberRetrofitClient.getRetrofitInstance();
-        MemberService memberService = retrofit.create(MemberService.class);
-
-
-        Call<List<Post>> postListCall = memberService.getPostByWriterId(sessionManager.getPk());
-//        postListCall.enqueue(new Callback<List<Post>>(){
-//
-//            @Override
-//            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-//                if (response.code() != 404) {
-//                    List<Post> posts = response.body();
-//                    PostAdapter postAdapter = new PostAdapter(posts);
-//                    postsView.setAdapter(new PostAdapter(posts));
-//                    Log.d("my tag", posts.toString());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Post>> call, Throwable t) {
-//                Log.d("my tag", t.getMessage());
-//            }
-//        });
+    private void loadAndSetRepos(String token, String login) {
+        Retrofit githubRetrofit = GithubRetrofitClient.getRetrofitInstance();
+        GithubService githubService = githubRetrofit.create(GithubService.class);
 
         Call<List<Repository>> repoListCall = githubService.getRepos(
                 "Bearer " + token, login);
@@ -158,6 +182,5 @@ public class MyPageFragment extends Fragment {
                 Log.d("my tag", t.getMessage());
             }
         });
-        return view;
     }
 }
