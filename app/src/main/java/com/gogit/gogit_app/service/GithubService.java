@@ -27,7 +27,7 @@ public interface GithubService {
             @Path("login") String username
     );
 
-    @GET("users/{login}/repos")
+    @GET("users/{login}/repos?sort=updated")
     Call<List<Repository>> getRepos(
             @Header("Authorization") String auth,
             @Path("login") String username
