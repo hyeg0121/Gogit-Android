@@ -1,13 +1,18 @@
 package com.gogit.gogit_app.service;
 
+import com.gogit.gogit_app.dto.AddRepositoryRequest;
 import com.gogit.gogit_app.dto.GithubUser;
 import com.gogit.gogit_app.dto.Repository;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface GithubService {
@@ -27,5 +32,11 @@ public interface GithubService {
     Call<List<Repository>> getRepos(
             @Header("Authorization") String auth,
             @Path("login") String username
+    );
+
+    @POST("user/repos")
+    Call<Map<String, Object>> createRepo(
+            @Header("Authorization") String auth,
+            @Body AddRepositoryRequest addRepositoryRequest
     );
 }
