@@ -1,4 +1,4 @@
-package com.gogit.gogit_app.dto;
+package com.gogit.gogit_app.request;
 
 public class MemberSignInRequest {
     private final String githubId;

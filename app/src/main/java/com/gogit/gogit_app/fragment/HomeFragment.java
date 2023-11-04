@@ -13,12 +13,9 @@ import android.view.ViewGroup;
 
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.adapter.PostAdapter;
-import com.gogit.gogit_app.client.GithubRetrofitClient;
-import com.gogit.gogit_app.client.MemberRetrofitClient;
 import com.gogit.gogit_app.client.PostRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
-import com.gogit.gogit_app.dto.Post;
-import com.gogit.gogit_app.service.MemberService;
+import com.gogit.gogit_app.domain.Post;
 import com.gogit.gogit_app.service.PostService;
 
 import java.util.List;

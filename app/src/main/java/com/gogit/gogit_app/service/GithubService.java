@@ -1,12 +1,11 @@
 package com.gogit.gogit_app.service;
 
-import com.gogit.gogit_app.dto.AddRepositoryRequest;
-import com.gogit.gogit_app.dto.GithubUser;
-import com.gogit.gogit_app.dto.Repository;
+import com.gogit.gogit_app.request.AddRepositoryRequest;
+import com.gogit.gogit_app.domain.GithubUser;
+import com.gogit.gogit_app.domain.Repository;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

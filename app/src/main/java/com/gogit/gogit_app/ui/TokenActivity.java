@@ -13,8 +13,8 @@ import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.client.MemberRetrofitClient;
 import com.gogit.gogit_app.config.Config;
 import com.gogit.gogit_app.config.SessionManager;
-import com.gogit.gogit_app.dto.Member;
-import com.gogit.gogit_app.dto.MemberSignInRequest;
+import com.gogit.gogit_app.domain.Member;
+import com.gogit.gogit_app.request.MemberSignInRequest;
 import com.gogit.gogit_app.service.MemberService;
 import com.gogit.gogit_app.util.MyToast;
 

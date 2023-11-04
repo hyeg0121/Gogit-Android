@@ -23,9 +23,9 @@ import com.gogit.gogit_app.adapter.RepoAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
 import com.gogit.gogit_app.client.PostRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
-import com.gogit.gogit_app.dto.GithubUser;
-import com.gogit.gogit_app.dto.Post;
-import com.gogit.gogit_app.dto.Repository;
+import com.gogit.gogit_app.domain.GithubUser;
+import com.gogit.gogit_app.domain.Post;
+import com.gogit.gogit_app.domain.Repository;
 import com.gogit.gogit_app.service.GithubService;
 import com.gogit.gogit_app.service.PostService;
 import com.gogit.gogit_app.ui.FragmentHelper;
@@ -47,6 +47,7 @@ public class MyPageFragment extends Fragment {
     TextView followerTextView;
     TextView usernameTextView;
     LinearLayout followerLayout;
+    TextView orgCountTextView;
     RecyclerView postsView;
     RecyclerView reposView;
     ImageButton repImageButton;
@@ -73,6 +74,7 @@ public class MyPageFragment extends Fragment {
         followerTextView = view.findViewById(R.id.account_follower);
         usernameTextView = view.findViewById(R.id.userName);
         followerLayout = view.findViewById(R.id.follower_layout);
+        orgCountTextView = view.findViewById(R.id.account_organization);
         repImageButton = view.findViewById(R.id.rep_image_button);
         postImageButton = view.findViewById(R.id.post_image_button);
         reposView = view.findViewById(R.id.repo_recyclerview);
@@ -153,6 +155,8 @@ public class MyPageFragment extends Fragment {
                 .into(profileImageView);
         repoTextview.setText((user.getPublic_repos() + user.getTotal_private_repos()) + "");
         followerTextView.setText(user.getFollowers() + "");
+        // TODO: 오가니제이션 어떻게 해야할지 고민해보기
+        orgCountTextView.setText("3");
     }
 
     private void loadAndSetPosts(Long pk) {

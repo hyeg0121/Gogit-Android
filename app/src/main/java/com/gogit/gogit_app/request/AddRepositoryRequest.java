@@ -1,4 +1,4 @@
-package com.gogit.gogit_app.dto;
+package com.gogit.gogit_app.request;
 
 public class AddRepositoryRequest {
     private String name;
