@@ -15,7 +15,7 @@ import com.gogit.gogit_app.client.GithubRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
 import com.gogit.gogit_app.request.AddRepositoryRequest;
 import com.gogit.gogit_app.service.GithubService;
-import com.gogit.gogit_app.ui.FragmentHelper;
+import com.gogit.gogit_app.util.FragmentHelper;
 import com.gogit.gogit_app.util.MyToast;
 
 

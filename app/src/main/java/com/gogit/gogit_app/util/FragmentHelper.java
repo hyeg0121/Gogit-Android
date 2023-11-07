@@ -1,4 +1,4 @@
-package com.gogit.gogit_app.ui;
+package com.gogit.gogit_app.util;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
