@@ -17,7 +17,8 @@
         android:layout_width="350dp"
         android:layout_height="55dp"
         android:layout_below="@+id/gitlogo"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:id="@+id/token_container">
         <EditText
             android:id="@+id/token_editText"
             android:background="@drawable/edit_text_style"
@@ -39,4 +40,14 @@
             android:backgroundTint="@color/black"
             />
     </LinearLayout>
+    <TextView
+        android:id="@+id/token_not_found"
+        android:layout_below="@+id/token_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="유요하지 않은 토큰입니다"
+        android:layout_marginTop="2dp"
+        android:textSize="13dp"
+        android:textColor="@color/error"
+        android:layout_marginLeft="50dp"/>
 </RelativeLayout>

@@ -36,5 +36,4 @@
             android:id="@+id/post_recyclerview">
         </androidx.recyclerview.widget.RecyclerView>
     </ScrollView>
-
 </LinearLayout>
