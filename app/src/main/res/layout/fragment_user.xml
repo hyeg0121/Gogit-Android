@@ -116,7 +116,7 @@
             android:text="hyeg0121"
             android:textSize="16dp" />
 
-        <android.widget.Button
+        <Button
             android:text="프로필 공유"
             android:background="@drawable/btn_round"
             android:backgroundTint="@color/blue"
@@ -125,7 +125,7 @@
             android:layout_height="50dp"
             android:layout_below="@+id/userName"
             android:layout_marginTop="20dp"
-            android:id="@+id/qr"/>
+            android:id="@+id/qr_share_button"/>
     </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
