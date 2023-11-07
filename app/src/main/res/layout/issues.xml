@@ -55,16 +55,4 @@
             <include layout="@layout/issues_item"/>
         </LinearLayout>
     </ScrollView>
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        tools:showln="layout/fragment_user"
-        android:id="@+id/bottomNav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:itemTextColor="@color/gray400"
-        app:itemIconSize="25dp"
-        app:labelVisibilityMode="unlabeled"
-        app:itemBackground="@color/white"
-        app:menu="@menu/bottom_menu">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
 </LinearLayout>
