@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.fragment.HomeFragment;
+import com.gogit.gogit_app.fragment.IssuesFragment;
 import com.gogit.gogit_app.fragment.MyPageFragment;
 import com.gogit.gogit_app.fragment.PostFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.post) {
                 selectedFragment = new PostFragment();
             } else if (item.getItemId() == R.id.issues) {
-
+                selectedFragment = new IssuesFragment();
             } else if (item.getItemId() == R.id.myPage) {
                 selectedFragment = new MyPageFragment();
             }
