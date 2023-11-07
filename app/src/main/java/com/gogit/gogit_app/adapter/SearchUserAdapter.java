@@ -1,5 +1,6 @@
 package com.gogit.gogit_app.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,7 @@ public class SearchUserAdapter
         GithubUser user = data.get(position);
 
         ImageView profileImageView = view.findViewById(R.id.profile);
-        TextView userIdTextView = view.findViewById(R.id.user_id);
+        TextView userIdTextView = view.findViewById(R.id.search_user_id);
 
         Glide.with(view)
                 .load(user.getAvatar_url())

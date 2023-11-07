@@ -74,7 +74,7 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:background="@drawable/circle"
-                        android:backgroundTint="#D25735"
+                        android:backgroundTint="@color/black"
                         android:id="@+id/language_color"/>
                     <TextView
                         android:layout_width="wrap_content"

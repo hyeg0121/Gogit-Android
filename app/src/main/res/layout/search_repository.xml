@@ -17,7 +17,7 @@
             android:id="@+id/profile"
             android:layout_marginRight="15dp"/>
             <TextView
-                android:layout_toRightOf="@id/profile"
+                android:layout_toRightOf="@+id/profile"
                 android:id="@+id/user_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="public"
-                android:layout_toRightOf="@id/repository_name"
+                android:layout_toRightOf="@+id/repository_name"
                 android:paddingLeft="10dp"
                 android:paddingTop="2dp"
                 android:paddingBottom="2dp"
@@ -74,7 +74,7 @@
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:background="@color/black"
+                        android:background="@color/blue"
                         android:id="@+id/language_color"/>
                     <TextView
                         android:layout_width="wrap_content"
