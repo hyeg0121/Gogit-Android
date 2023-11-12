@@ -30,7 +30,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class PostAndCommentFragment extends Fragment {
+public class PostDetailFragment extends Fragment {
 
     private static final String POST_ID = "post_id";
 
@@ -43,11 +43,11 @@ public class PostAndCommentFragment extends Fragment {
     TextView postContentTextView;
     RecyclerView commentRecyclerView;
 
-    public PostAndCommentFragment() {
+    public PostDetailFragment() {
     }
 
-    public static PostAndCommentFragment newInstance(Long postId) {
-        PostAndCommentFragment fragment = new PostAndCommentFragment();
+    public static PostDetailFragment newInstance(Long postId) {
+        PostDetailFragment fragment = new PostDetailFragment();
         Bundle args = new Bundle();
         args.putLong(POST_ID, postId);
         fragment.setArguments(args);
