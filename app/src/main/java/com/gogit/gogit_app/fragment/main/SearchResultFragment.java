@@ -16,8 +16,8 @@ import com.gogit.gogit_app.adapter.SearchRepoAdapter;
 import com.gogit.gogit_app.adapter.SearchUserAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
-import com.gogit.gogit_app.model.github.SearchedRepo;
-import com.gogit.gogit_app.model.github.SearchedUser;
+import com.gogit.gogit_app.model.github.repo.SearchedRepo;
+import com.gogit.gogit_app.model.github.user.SearchedUser;
 import com.gogit.gogit_app.service.GithubService;
 import com.gogit.gogit_app.util.MyToast;
 

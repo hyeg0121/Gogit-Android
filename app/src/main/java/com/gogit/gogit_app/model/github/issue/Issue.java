@@ -1,4 +1,7 @@
-package com.gogit.gogit_app.model.github;
+package com.gogit.gogit_app.model.github.issue;
+
+import com.gogit.gogit_app.model.github.repo.Repository;
+import com.gogit.gogit_app.model.github.user.GithubUser;
 
 public class Issue {
     private Long number;

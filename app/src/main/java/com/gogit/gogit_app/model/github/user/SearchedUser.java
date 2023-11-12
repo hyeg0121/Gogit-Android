@@ -1,6 +1,4 @@
-package com.gogit.gogit_app.model.github;
-
-import com.gogit.gogit_app.model.github.GithubUser;
+package com.gogit.gogit_app.model.github.user;
 
 import java.util.List;
 

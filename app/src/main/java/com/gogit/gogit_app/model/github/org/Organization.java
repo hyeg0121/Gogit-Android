@@ -1,4 +1,4 @@
-package com.gogit.gogit_app.model.github;
+package com.gogit.gogit_app.model.github.org;
 
 public class Organization {
     private String login;
