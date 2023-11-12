@@ -1,5 +1,6 @@
 package com.gogit.gogit_app.service;
 
+import com.gogit.gogit_app.model.github.commit.RepoCommit;
 import com.gogit.gogit_app.model.github.issue.Issue;
 import com.gogit.gogit_app.model.github.repo.SearchedRepo;
 import com.gogit.gogit_app.model.github.user.SearchedUser;
@@ -62,5 +63,11 @@ public interface GithubService {
             @Header("Authorization") String auth
     );
 
+    @GET("/repos/{owner}/{repo}/commits")
+    Call<List<RepoCommit>> getReposCommits(
+            @Header("Authorization") String auth,
+            @Path("owner") String owner,
+            @Path("repo") String repo
+    );
 
 }
