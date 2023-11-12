@@ -15,12 +15,16 @@ import android.widget.EditText;
 
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.client.MemberRetrofitClient;
+import com.gogit.gogit_app.client.PostRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
 import com.gogit.gogit_app.request.AddPostRequest;
 import com.gogit.gogit_app.model.Member;
 import com.gogit.gogit_app.model.Post;
 import com.gogit.gogit_app.service.PostService;
+import com.gogit.gogit_app.util.FragmentHelper;
 import com.gogit.gogit_app.util.MyToast;
+
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,45 +48,34 @@ public class CreatePostFragment extends Fragment {
         Button uploadButton = view.findViewById(R.id.upload_button);
 
         // retrofit
-        Retrofit retrofit = MemberRetrofitClient.getRetrofitInstance();
+        Retrofit retrofit = PostRetrofitClient.getRetrofitInstance();
         PostService postService = retrofit.create(PostService.class);
 
+        // TODO: 글이 작성되어 있을 때만 버튼 클릭할 수 있게 하기
+
         uploadButton.setOnClickListener(e -> {
+
             String content = contentEditText.getText().toString();
-            Log.d("my tag", sessionManager.getPk().toString());
+            AddPostRequest addPostRequest = new AddPostRequest(sessionManager.getPk(), content);
 
-            Member writer = new Member(
-                    sessionManager.getPk(),
-                    sessionManager.getUserId(),
-                    sessionManager.getToken());
+            Log.d("my tag", addPostRequest.toString());
+            Call<Map<String, Object>> call = postService.createdPost(addPostRequest);
 
-            Log.d("my tag", writer.toString());
-
-
-            AddPostRequest addPostRequest = new AddPostRequest(writer, content);
-
-            Call<Post> call = postService.createdPost(addPostRequest);
-
-            call.enqueue(new Callback<Post>() {
+            call.enqueue(new Callback<Map<String, Object>>() {
                 @Override
-                public void onResponse(Call<Post> call, Response<Post> response) {
-                    Post post = response.body();
-                    Log.d("my tag", post.toString());
-                    // 프래그먼트 트랜잭션 시작
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                    Log.d("my tag", response.toString());
 
-                    // Follower 프래그먼트를 생성하고 추가
-                    HomeFragment homeFragment = new HomeFragment();
-                    transaction.replace(R.id.containers, homeFragment);
-                    transaction.addToBackStack(null); // 이전 상태를 백 스택에 추가
-
-                    // 트랜잭션 커밋
-                    transaction.commit();
+                    if (response.isSuccessful()) {
+                        FragmentHelper.replaceFragment(
+                                getActivity().getSupportFragmentManager(),
+                                R.id.containers,
+                                new HomeFragment());
+                    }
                 }
 
                 @Override
-                public void onFailure(Call<Post> call, Throwable t) {
+                public void onFailure(Call<Map<String, Object>> call, Throwable t) {
                     Log.d("my tag", "onFailure: " + t.getMessage());
                     MyToast.showToast(getContext(), "네트워크 에러 발생");
                 }
