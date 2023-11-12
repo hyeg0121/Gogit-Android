@@ -1,8 +1,11 @@
 package com.gogit.gogit_app.fragment.repo;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,15 +13,31 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gogit.gogit_app.R;
+import com.gogit.gogit_app.adapter.CommitAdapter;
+import com.gogit.gogit_app.client.GithubRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
+import com.gogit.gogit_app.model.github.commit.RepoCommit;
+import com.gogit.gogit_app.service.GithubService;
+import com.gogit.gogit_app.util.MyToast;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class RepoDetailFragment extends Fragment {
     private static final String REPO_NAME = "repo_name";
     private String repoName;
     private String login;
     private String token;
+    private Retrofit retrofit;
+    private GithubService githubService;
+    private RecyclerView commitRecyclerView;
 
-    public RepoDetailFragment() {}
+    public RepoDetailFragment() {
+    }
 
     public static RepoDetailFragment newInstance(String repoName) {
         RepoDetailFragment fragment = new RepoDetailFragment();
@@ -36,17 +55,53 @@ public class RepoDetailFragment extends Fragment {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.repository_commit, container, false);
 
+        retrofit = GithubRetrofitClient.getRetrofitInstance();
+        githubService = retrofit.create(GithubService.class);
+
         SessionManager sessionManager = new SessionManager(getContext());
         login = sessionManager.getUserId();
         token = sessionManager.getToken();
+
+        commitRecyclerView = view.findViewById(R.id.commit_recyclerview);
+        commitRecyclerView.setHasFixedSize(false);
+        commitRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        showCommits(token, login, repoName);
 
         Log.d("my tag", repoName);
 
         return view;
     }
+
+    private void showCommits(String token, String owner, String repo) {
+        Call<List<RepoCommit>> call = githubService.getReposCommits(
+                "Bearer " + token,
+                owner,
+                repo
+        );
+
+        call.enqueue(new Callback<List<RepoCommit>>() {
+            @Override
+            public void onResponse(Call<List<RepoCommit>> call, Response<List<RepoCommit>> response) {
+                if (response.isSuccessful()) {
+                    List<RepoCommit> commits = response.body();
+                    if (commits != null) {
+                        commitRecyclerView.setAdapter(new CommitAdapter(commits));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<RepoCommit>> call, Throwable t) {
+                MyToast.showNetworkErrorToast(getContext());
+            }
+        });
+    }
+
 }
