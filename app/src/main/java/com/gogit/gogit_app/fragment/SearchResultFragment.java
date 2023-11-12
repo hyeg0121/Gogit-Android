@@ -16,13 +16,10 @@ import com.gogit.gogit_app.adapter.SearchRepoAdapter;
 import com.gogit.gogit_app.adapter.SearchUserAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
-import com.gogit.gogit_app.model.SearchedRepo;
-import com.gogit.gogit_app.model.SearchedUser;
+import com.gogit.gogit_app.model.github.SearchedRepo;
+import com.gogit.gogit_app.model.github.SearchedUser;
 import com.gogit.gogit_app.service.GithubService;
 import com.gogit.gogit_app.util.MyToast;
-
-import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;

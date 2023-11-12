@@ -1,4 +1,4 @@
-package com.gogit.gogit_app.model;
+package com.gogit.gogit_app.model.github;
 
 public class Issue {
     private Long number;

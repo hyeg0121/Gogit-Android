@@ -1,6 +1,5 @@
 package com.gogit.gogit_app.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gogit.gogit_app.R;
-import com.gogit.gogit_app.model.GithubUser;
+import com.gogit.gogit_app.model.github.GithubUser;
 
 
 import java.util.List;

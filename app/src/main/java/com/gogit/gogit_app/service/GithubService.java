@@ -1,11 +1,11 @@
 package com.gogit.gogit_app.service;
 
-import com.gogit.gogit_app.model.Issue;
-import com.gogit.gogit_app.model.SearchedRepo;
-import com.gogit.gogit_app.model.SearchedUser;
+import com.gogit.gogit_app.model.github.Issue;
+import com.gogit.gogit_app.model.github.SearchedRepo;
+import com.gogit.gogit_app.model.github.SearchedUser;
 import com.gogit.gogit_app.request.AddRepositoryRequest;
-import com.gogit.gogit_app.model.GithubUser;
-import com.gogit.gogit_app.model.Repository;
+import com.gogit.gogit_app.model.github.GithubUser;
+import com.gogit.gogit_app.model.github.Repository;
 
 import java.util.List;
 import java.util.Map;
