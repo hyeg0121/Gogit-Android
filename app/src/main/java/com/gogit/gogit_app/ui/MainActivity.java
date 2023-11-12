@@ -14,7 +14,7 @@ import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.fragment.HomeFragment;
 import com.gogit.gogit_app.fragment.IssuesFragment;
 import com.gogit.gogit_app.fragment.MyPageFragment;
-import com.gogit.gogit_app.fragment.PostFragment;
+import com.gogit.gogit_app.fragment.PostAndRepositoryFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.home) {
                 selectedFragment = new HomeFragment();
             } else if (item.getItemId() == R.id.post) {
-                selectedFragment = new PostFragment();
+                selectedFragment = new PostAndRepositoryFragment();
             } else if (item.getItemId() == R.id.issues) {
                 selectedFragment = new IssuesFragment();
             } else if (item.getItemId() == R.id.myPage) {

@@ -13,9 +13,9 @@ import android.widget.Button;
 
 import com.gogit.gogit_app.R;
 
-public class PostFragment extends Fragment {
+public class PostAndRepositoryFragment extends Fragment {
 
-    public PostFragment() {}
+    public PostAndRepositoryFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
