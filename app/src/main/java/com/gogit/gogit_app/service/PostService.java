@@ -4,6 +4,8 @@ import com.gogit.gogit_app.request.AddPostRequest;
 import com.gogit.gogit_app.model.Post;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -13,12 +15,12 @@ import retrofit2.http.Path;
 
 public interface PostService {
     @POST("/posts")
-    Call<Post> createdPost(@Body AddPostRequest addPostRequest);
+    Call<Map<String, Object>> createdPost(@Body AddPostRequest addPostRequest);
 
     @GET("/posts")
     Call<List<Post>> getAllPosts();
 
-    @GET("/posts/member/{pk}")
+    @GET("/posts/members/{pk}")
     Call<List<Post>> getMembersAllPosts(
             @Path("pk") Long pk
     );
