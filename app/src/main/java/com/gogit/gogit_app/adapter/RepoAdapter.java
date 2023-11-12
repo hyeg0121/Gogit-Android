@@ -80,6 +80,7 @@ public class RepoAdapter
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
         public View view;
+
         public ItemViewHolder(@androidx.annotation.NonNull View itemView) {
             super(itemView);
             this.view = itemView;
