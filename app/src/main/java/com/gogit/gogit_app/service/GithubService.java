@@ -1,5 +1,6 @@
 package com.gogit.gogit_app.service;
 
+import com.gogit.gogit_app.model.Issue;
 import com.gogit.gogit_app.model.SearchedRepo;
 import com.gogit.gogit_app.model.SearchedUser;
 import com.gogit.gogit_app.request.AddRepositoryRequest;
@@ -55,4 +56,11 @@ public interface GithubService {
             @Query("q") String keyword,
             @Query("per_page") Integer perPage
     );
+
+    @GET("/issues")
+    Call<List<Issue>> getUesrsIssues(
+            @Header("Authorization") String auth
+    );
+
+
 }
