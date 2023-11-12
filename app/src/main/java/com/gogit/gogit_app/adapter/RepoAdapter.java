@@ -7,12 +7,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gogit.gogit_app.R;
+import com.gogit.gogit_app.fragment.RepoDetailFragment;
 import com.gogit.gogit_app.model.Repository;
+import com.gogit.gogit_app.util.FragmentHelper;
 
 import java.util.List;
 
@@ -55,13 +58,19 @@ public class RepoAdapter
                 .placeholder(R.drawable.git_logo)
                 .into(profileImageView);
 
-        // TODO: lang null 해결하기
-        // TODO: 많이 쓰이는 lang 컬러 지정하기
         userIdTextView.setText(repo.getOwner().getLogin());
         repositoryNameTextView.setText(repo.getFull_name());
         languageTypeTextView.setText(repo.getLanguage());
         accountForkedTextView.setText(repo.getFork_count() + "");
         accountStarTextView.setText(repo.getStargazers_count() + "");
+
+        view.setOnClickListener(e -> {
+            FragmentHelper.replaceFragment(
+                    ((FragmentActivity) (view.getContext())).getSupportFragmentManager(),
+                    R.id.containers,
+                    RepoDetailFragment.newInstance(repo.getFull_name().split("/")[1])
+            );
+        });
     }
 
     @Override
