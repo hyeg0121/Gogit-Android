@@ -1,4 +1,4 @@
-package com.gogit.gogit_app.fragment;
+package com.gogit.gogit_app.fragment.issue;
 
 import android.os.Bundle;
 

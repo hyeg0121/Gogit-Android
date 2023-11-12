@@ -11,10 +11,10 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.gogit.gogit_app.R;
-import com.gogit.gogit_app.fragment.HomeFragment;
-import com.gogit.gogit_app.fragment.IssuesFragment;
-import com.gogit.gogit_app.fragment.MyPageFragment;
-import com.gogit.gogit_app.fragment.PostAndRepositoryFragment;
+import com.gogit.gogit_app.fragment.main.HomeFragment;
+import com.gogit.gogit_app.fragment.issue.IssuesFragment;
+import com.gogit.gogit_app.fragment.user.MyPageFragment;
+import com.gogit.gogit_app.fragment.repo.PostAndRepositoryFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 

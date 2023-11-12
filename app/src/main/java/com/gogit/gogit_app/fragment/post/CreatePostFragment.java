@@ -1,10 +1,8 @@
-package com.gogit.gogit_app.fragment;
+package com.gogit.gogit_app.fragment.post;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,12 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.gogit.gogit_app.R;
-import com.gogit.gogit_app.client.MemberRetrofitClient;
 import com.gogit.gogit_app.client.PostRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
+import com.gogit.gogit_app.fragment.main.HomeFragment;
 import com.gogit.gogit_app.request.AddPostRequest;
-import com.gogit.gogit_app.model.Member;
-import com.gogit.gogit_app.model.Post;
 import com.gogit.gogit_app.service.PostService;
 import com.gogit.gogit_app.util.FragmentHelper;
 import com.gogit.gogit_app.util.MyToast;

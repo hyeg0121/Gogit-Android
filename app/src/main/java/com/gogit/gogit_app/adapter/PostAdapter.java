@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gogit.gogit_app.R;
-import com.gogit.gogit_app.fragment.PostDetailFragment;
+import com.gogit.gogit_app.fragment.post.PostDetailFragment;
 import com.gogit.gogit_app.model.Post;
 import com.gogit.gogit_app.util.FragmentHelper;
 

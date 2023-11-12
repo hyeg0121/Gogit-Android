@@ -1,4 +1,4 @@
-package com.gogit.gogit_app.fragment;
+package com.gogit.gogit_app.fragment.repo;
 
 import android.os.Bundle;
 
@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.gogit.gogit_app.R;
+import com.gogit.gogit_app.fragment.post.CreatePostFragment;
 
 public class PostAndRepositoryFragment extends Fragment {
 
