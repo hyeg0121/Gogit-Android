@@ -1,5 +1,6 @@
 package com.gogit.gogit_app.service;
 
+import com.gogit.gogit_app.model.Comment;
 import com.gogit.gogit_app.request.AddPostRequest;
 import com.gogit.gogit_app.model.Post;
 
@@ -20,8 +21,18 @@ public interface PostService {
     @GET("/posts")
     Call<List<Post>> getAllPosts();
 
-    @GET("/posts/members/{pk}")
+    @GET("/members/{pk}/posts")
     Call<List<Post>> getMembersAllPosts(
             @Path("pk") Long pk
+    );
+
+    @GET("/posts/{postId}")
+    Call<Post> getPostById(
+            @Path("postId") Long postId
+    );
+
+    @GET("/posts/{postId}/comments")
+    Call<List<Comment>> getCommentByPostId(
+            @Path("postId") Long postId
     );
 }
