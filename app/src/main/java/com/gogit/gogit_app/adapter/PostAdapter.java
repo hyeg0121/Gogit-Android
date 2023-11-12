@@ -62,7 +62,11 @@ public class PostAdapter
         } else {
             Log.d("my tag", post.toString());
         }
-        contentTextView.setText(post.getContents());
+        contentTextView.setText(post.getContent());
+
+        view.setOnClickListener(e -> {
+
+        });
 
     }
 
