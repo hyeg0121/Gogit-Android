@@ -1,15 +1,34 @@
 package com.gogit.gogit_app.model;
 
 public class Comment {
-    private final Long id;
-    private final String content;
-    private final Member author;
-    private final Post post;
+    private Long id;
+    private String content;
+    private Member author;
 
-    public Comment(Long id, String content, Member author, Post post) {
+    public Comment(Long id, String content, Member author) {
         this.id = id;
         this.content = content;
         this.author = author;
-        this.post = post;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public Member getAuthor() {
+        return author;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", author=" + author +
+                '}';
     }
 }
