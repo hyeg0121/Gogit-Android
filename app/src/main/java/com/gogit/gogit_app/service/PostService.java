@@ -1,6 +1,7 @@
 package com.gogit.gogit_app.service;
 
 import com.gogit.gogit_app.model.Comment;
+import com.gogit.gogit_app.request.AddCommentRequest;
 import com.gogit.gogit_app.request.AddPostRequest;
 import com.gogit.gogit_app.model.Post;
 
@@ -34,5 +35,11 @@ public interface PostService {
     @GET("/posts/{postId}/comments")
     Call<List<Comment>> getCommentByPostId(
             @Path("postId") Long postId
+    );
+
+    @POST("/posts/{postId}/comments")
+    Call<Map<String, String>> createComment(
+            @Path("postId") Long postId,
+            @Body AddCommentRequest addCommentRequest
     );
 }
