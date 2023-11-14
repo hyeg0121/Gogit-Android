@@ -30,10 +30,10 @@
         android:layout_weight="1"
         android:scrollbars="none">
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/post_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/post_recyclerview">
+            android:orientation="vertical">
         </androidx.recyclerview.widget.RecyclerView>
     </ScrollView>
 </LinearLayout>
