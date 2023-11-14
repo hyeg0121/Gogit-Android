@@ -110,6 +110,7 @@
             android:layout_height="50dp"
             android:background="@drawable/git_logo"/>
         <EditText
+            android:id="@+id/comment_write_edittext"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/organization_btn_round"
