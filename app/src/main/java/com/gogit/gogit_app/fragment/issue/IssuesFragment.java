@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.gogit.gogit_app.R;
@@ -21,11 +23,12 @@ import com.gogit.gogit_app.client.GithubRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
 import com.gogit.gogit_app.model.github.issue.Issue;
 import com.gogit.gogit_app.model.github.repo.Repository;
+import com.gogit.gogit_app.request.AddIssueRequest;
 import com.gogit.gogit_app.service.GithubService;
 import com.gogit.gogit_app.util.MyToast;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,6 +44,9 @@ public class IssuesFragment extends Fragment {
     String userId;
     Spinner repoSpinner;
     String selectedRepoName;
+
+    Button uploadButton;
+    EditText issueTitleEditText;
 
 
     @SuppressLint("MissingInflatedId")
@@ -62,6 +68,18 @@ public class IssuesFragment extends Fragment {
 
         repoSpinner = view.findViewById(R.id.repo_spinner);
 
+        uploadButton = view.findViewById(R.id.upload_button);
+        issueTitleEditText = view.findViewById(R.id.issue_title_edittext);
+
+        uploadButton.setOnClickListener(e -> {
+            String title = issueTitleEditText.getText().toString();
+            if (title.trim().length() == 0) {
+                MyToast.showToast(getContext(), "이슈 제목을 입력해주세요.");
+                return;
+            }
+
+            createIssue(token, userId, selectedRepoName, title);
+        });
         showIssues(token);
         setRepoSpinner(token, userId, repoSpinner);
         return view;
@@ -131,4 +149,37 @@ public class IssuesFragment extends Fragment {
 
 
     }
+
+    private void createIssue(String token, String login, String repo, String title) {
+        ArrayList<String> list = new ArrayList<>();
+        list.add(login);
+
+        Call<Issue> call = githubService.createIssue(
+                "Bearer " + token, login, repo, new AddIssueRequest(title, list)
+        );
+
+        Log.d("my tag", new AddIssueRequest(title, list).toString());
+
+        call.enqueue(new Callback<Issue>() {
+            @Override
+            public void onResponse(Call<Issue> call, Response<Issue> response) {
+
+                if (response.isSuccessful()) {
+                    MyToast.showToast(getContext(), "이슈가 추가되었습니다.");
+                    issueTitleEditText.setText("");
+                    showIssues(token);
+
+                } else {
+                    MyToast.showToast(getContext(), "이슈 추가를 실패했습니다.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Issue> call, Throwable t) {
+                MyToast.showNetworkErrorToast(getContext());
+            }
+        });
+    }
+
+
 }
