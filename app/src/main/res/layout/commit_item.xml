@@ -11,17 +11,21 @@
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:background="@drawable/border_line_radius">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/git_logo"
-            android:id="@+id/profile_commit_item"
-            android:layout_marginRight="10dp"/>
+        <TextView
+            android:id="@+id/commit_item_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="haewon171"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="10dp"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="pushpushbaby"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:id="@+id/commit_message"/>
     </LinearLayout>
 </LinearLayout>
