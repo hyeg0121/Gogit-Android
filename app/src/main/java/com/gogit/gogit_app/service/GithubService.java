@@ -1,9 +1,12 @@
 package com.gogit.gogit_app.service;
 
-import com.gogit.gogit_app.model.SearchedUser;
+import com.gogit.gogit_app.model.github.commit.RepoCommit;
+import com.gogit.gogit_app.model.github.issue.Issue;
+import com.gogit.gogit_app.model.github.repo.SearchedRepo;
+import com.gogit.gogit_app.model.github.user.SearchedUser;
 import com.gogit.gogit_app.request.AddRepositoryRequest;
-import com.gogit.gogit_app.model.GithubUser;
-import com.gogit.gogit_app.model.Repository;
+import com.gogit.gogit_app.model.github.user.GithubUser;
+import com.gogit.gogit_app.model.github.repo.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -45,7 +48,26 @@ public interface GithubService {
     Call<SearchedUser> getUserSearchResult(
             @Header("Authorization") String auth,
             @Query("q") String keyword,
-            @Query("sort") String sort,
             @Query("per_page") Integer perPage
     );
+
+    @GET("/search/repositories")
+    Call<SearchedRepo> getRepoSearchResult(
+            @Header("Authorization") String auth,
+            @Query("q") String keyword,
+            @Query("per_page") Integer perPage
+    );
+
+    @GET("/issues")
+    Call<List<Issue>> getUesrsIssues(
+            @Header("Authorization") String auth
+    );
+
+    @GET("/repos/{owner}/{repo}/commits")
+    Call<List<RepoCommit>> getReposCommits(
+            @Header("Authorization") String auth,
+            @Path("owner") String owner,
+            @Path("repo") String repo
+    );
+
 }

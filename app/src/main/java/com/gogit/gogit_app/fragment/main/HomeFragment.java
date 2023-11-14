@@ -1,4 +1,4 @@
-package com.gogit.gogit_app.fragment;
+package com.gogit.gogit_app.fragment.main;
 
 import android.os.Bundle;
 
@@ -18,7 +18,7 @@ import com.gogit.gogit_app.client.PostRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
 import com.gogit.gogit_app.model.Post;
 import com.gogit.gogit_app.service.PostService;
-import com.gogit.gogit_app.ui.FragmentHelper;
+import com.gogit.gogit_app.util.FragmentHelper;
 import com.gogit.gogit_app.util.MyToast;
 
 import java.util.List;

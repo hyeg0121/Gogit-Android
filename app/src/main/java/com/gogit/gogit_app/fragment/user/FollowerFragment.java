@@ -1,4 +1,4 @@
-package com.gogit.gogit_app.fragment;
+package com.gogit.gogit_app.fragment.user;
 
 import android.os.Bundle;
 
@@ -19,7 +19,7 @@ import com.gogit.gogit_app.adapter.FollowerAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
 import com.gogit.gogit_app.config.Config;
 import com.gogit.gogit_app.config.SessionManager;
-import com.gogit.gogit_app.model.GithubUser;
+import com.gogit.gogit_app.model.github.user.GithubUser;
 import com.gogit.gogit_app.service.GithubService;
 
 import java.util.List;

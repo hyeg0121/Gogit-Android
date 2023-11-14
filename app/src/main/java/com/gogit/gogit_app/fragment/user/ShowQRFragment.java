@@ -1,4 +1,4 @@
-package com.gogit.gogit_app.fragment;
+package com.gogit.gogit_app.fragment.user;
 
 import android.os.Bundle;
 

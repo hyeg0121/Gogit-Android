@@ -1,4 +1,6 @@
-package com.gogit.gogit_app.model;
+package com.gogit.gogit_app.model.github.repo;
+
+import com.gogit.gogit_app.model.github.user.GithubUser;
 
 import java.util.Date;
 

@@ -3,11 +3,19 @@ package com.gogit.gogit_app.request;
 import com.gogit.gogit_app.model.Member;
 
 public class AddPostRequest {
-    private final Member writer;
-    private final String contents;
+    private final Long writer;
+    private final String content;
 
-    public AddPostRequest(Member writer, String contents) {
+    public AddPostRequest(Long writer, String content) {
         this.writer = writer;
-        this.contents = contents;
+        this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "AddPostRequest{" +
+                "writer=" + writer +
+                ", content='" + content + '\'' +
+                '}';
     }
 }

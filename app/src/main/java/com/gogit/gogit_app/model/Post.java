@@ -6,15 +6,15 @@ import java.util.List;
 public class Post {
     private final Long id;
     private final Member writer;
-    private final String contents;
+    private final String content;
     private final List<Comment> comment;
     private final List<Member> likedMembers;
     private final Date createdAt;
 
-    public Post(Long id, Member writer, String contents, List<Comment> comment, List<Member> likedMembers, Date createdAt) {
+    public Post(Long id, Member writer, String content, List<Comment> comment, List<Member> likedMembers, Date createdAt) {
         this.id = id;
         this.writer = writer;
-        this.contents = contents;
+        this.content = content;
         this.comment = comment;
         this.likedMembers = likedMembers;
         this.createdAt = createdAt;
@@ -32,8 +32,8 @@ public class Post {
         return writer;
     }
 
-    public String getContents() {
-        return contents;
+    public String getContent() {
+        return content;
     }
 
     public List<Comment> getComment() {
@@ -49,7 +49,7 @@ public class Post {
         return "Post{" +
                 "id=" + id +
                 ", wrtier=" + writer +
-                ", contents='" + contents + '\'' +
+                ", content='" + content + '\'' +
                 ", comment=" + comment +
                 ", likedMembers=" + likedMembers +
                 '}';

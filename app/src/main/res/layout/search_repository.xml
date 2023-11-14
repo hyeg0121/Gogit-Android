@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -45,6 +45,19 @@
                 android:textSize="16dp"
                 android:textColor="@color/blue"
                 android:id="@+id/repository_name"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="public"
+                android:layout_toRightOf="@+id/repository_name"
+                android:paddingLeft="10dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/gray900"
+                android:textSize="12dp"
+                android:background="@drawable/organization_btn_round"/>
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,8 +74,7 @@
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:background="@drawable/circle"
-                        android:backgroundTint="@color/black"
+                        android:background="@color/blue"
                         android:id="@+id/language_color"/>
                     <TextView
                         android:layout_width="wrap_content"

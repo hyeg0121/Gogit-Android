@@ -1,13 +1,13 @@
-package com.gogit.gogit_app.model;
+package com.gogit.gogit_app.model.github.repo;
 
 import java.util.List;
 
-public class SearchedUser {
+public class SearchedRepo {
     private Integer total_count;
     private Boolean incomplete_results;
-    private List<GithubUser> items;
+    private List<Repository> items;
 
-    public SearchedUser(Integer total_count, Boolean incomplete_results, List<GithubUser> items) {
+    public SearchedRepo(Integer total_count, Boolean incomplete_results, List<Repository> items) {
         this.total_count = total_count;
         this.incomplete_results = incomplete_results;
         this.items = items;
@@ -29,11 +29,11 @@ public class SearchedUser {
         this.incomplete_results = incomplete_results;
     }
 
-    public List<GithubUser> getItems() {
+    public List<Repository> getItems() {
         return items;
     }
 
-    public void setItems(List<GithubUser> items) {
+    public void setItems(List<Repository> items) {
         this.items = items;
     }
 }

@@ -8,12 +8,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gogit.gogit_app.R;
+import com.gogit.gogit_app.fragment.post.PostDetailFragment;
 import com.gogit.gogit_app.model.Post;
+import com.gogit.gogit_app.util.FragmentHelper;
 
 import java.util.List;
 
@@ -52,9 +55,9 @@ public class PostAdapter
 
         Glide.with(view.getContext())
                 .load(post.getWriter().getAvatarUrl())
-                .apply(RequestOptions.circleCropTransform())
                 .error(R.drawable.git_logo)
                 .placeholder(R.drawable.git_logo)
+                .apply(RequestOptions.circleCropTransform())
                 .into(profileImageView);
 
         if (post.getWriter() != null) {
@@ -62,7 +65,15 @@ public class PostAdapter
         } else {
             Log.d("my tag", post.toString());
         }
-        contentTextView.setText(post.getContents());
+        contentTextView.setText(post.getContent());
+
+        view.setOnClickListener(e -> {
+            FragmentHelper.replaceFragment(
+                    ((FragmentActivity) view.getContext()).getSupportFragmentManager(),
+                    R.id.containers,
+                    PostDetailFragment.newInstance(post.getId())
+            );
+        });
 
     }
 

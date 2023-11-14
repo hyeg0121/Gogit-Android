@@ -12,49 +12,46 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gogit.gogit_app.R;
-import com.gogit.gogit_app.model.github.user.GithubUser;
+import com.gogit.gogit_app.model.Comment;
 
 import java.util.List;
 
-public class FollowerAdapter
-        extends RecyclerView.Adapter<FollowerAdapter.ItemViewHolder> {
+public class CommentAdapter
+    extends RecyclerView.Adapter<CommentAdapter.ItemViewHolder> {
 
-    List<GithubUser> data;
+    List<Comment> data;
 
-    public FollowerAdapter(List<GithubUser> data) {
+    public CommentAdapter(List<Comment> data) {
         this.data = data;
     }
 
-
     @NonNull
     @Override
-    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CommentAdapter.ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.follower_item, parent, false);
+                .inflate(R.layout.comment_user, parent, false);
 
         return new ItemViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CommentAdapter.ItemViewHolder holder, int position) {
         View view = holder.view;
-        ImageView profile = view.findViewById(R.id.user_profile);
-        TextView name = view.findViewById(R.id.user_name);
-        TextView id = view.findViewById(R.id.user_id);
+        Comment comment = data.get(position);
 
-        GithubUser user = data.get(position);
+        ImageView otherProfileImageView = view.findViewById(R.id.other_profile);
+        TextView userIdTextView = view.findViewById(R.id.userId);
+        TextView contentTextView = view.findViewById(R.id.write);
 
-        Glide.with(view.getContext())
-                .load(user.getAvatar_url())
-                .placeholder(R.drawable.git_logo)
+        Glide.with(view)
+                .load(comment.getAuthor().getAvatarUrl())
                 .error(R.drawable.git_logo)
                 .apply(RequestOptions.circleCropTransform())
-                .into(profile);
-        name.setText(user.getName());
-        id.setText(user.getLogin());
-        // TODO: 팔로우 취소 버튼 생성
+                .into(otherProfileImageView);
 
+        userIdTextView.setText(comment.getAuthor().getGithubId());
+        contentTextView.setText(comment.getContent());
     }
 
     @Override
@@ -64,10 +61,10 @@ public class FollowerAdapter
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
         public View view;
+
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
             this.view = itemView;
         }
     }
-
 }

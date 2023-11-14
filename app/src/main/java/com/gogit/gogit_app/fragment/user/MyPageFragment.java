@@ -1,4 +1,4 @@
-package com.gogit.gogit_app.fragment;
+package com.gogit.gogit_app.fragment.user;
 
 import android.os.Bundle;
 
@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,12 +24,12 @@ import com.gogit.gogit_app.adapter.RepoAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
 import com.gogit.gogit_app.client.PostRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
-import com.gogit.gogit_app.model.GithubUser;
+import com.gogit.gogit_app.model.github.user.GithubUser;
 import com.gogit.gogit_app.model.Post;
-import com.gogit.gogit_app.model.Repository;
+import com.gogit.gogit_app.model.github.repo.Repository;
 import com.gogit.gogit_app.service.GithubService;
 import com.gogit.gogit_app.service.PostService;
-import com.gogit.gogit_app.ui.FragmentHelper;
+import com.gogit.gogit_app.util.FragmentHelper;
 import com.gogit.gogit_app.util.MyToast;
 
 import java.util.List;
@@ -52,6 +53,7 @@ public class MyPageFragment extends Fragment {
     RecyclerView reposView;
     ImageButton repImageButton;
     ImageButton postImageButton;
+    Button profileShareButton;
 
 
     public MyPageFragment() {}
@@ -79,13 +81,13 @@ public class MyPageFragment extends Fragment {
         postImageButton = view.findViewById(R.id.post_image_button);
         reposView = view.findViewById(R.id.repo_recyclerview);
         postsView = view.findViewById(R.id.post_recyclerview);
+        profileShareButton = view.findViewById(R.id.qr_share_button);
 
         followerLayout.setOnClickListener(e -> {
             FragmentHelper.replaceFragment(getActivity().getSupportFragmentManager(),
                     R.id.containers,
                     new FollowerFragment());
         });
-
 
         repImageButton.setOnClickListener(e -> {
             reposView.setVisibility(View.VISIBLE);
@@ -97,6 +99,14 @@ public class MyPageFragment extends Fragment {
             reposView.setVisibility(View.GONE);
             postsView.setVisibility(View.VISIBLE);
             Log.d("my tag", "post click");
+        });
+
+        profileShareButton.setOnClickListener(e -> {
+            FragmentHelper.replaceFragment(
+                    getActivity().getSupportFragmentManager(),
+                    R.id.containers,
+                    new ShowQRFragment()
+            );
         });
 
         // 글 리사이클러 뷰
