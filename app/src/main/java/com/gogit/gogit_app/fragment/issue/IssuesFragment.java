@@ -1,5 +1,6 @@
 package com.gogit.gogit_app.fragment.issue;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,12 +11,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.adapter.IssueAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
 import com.gogit.gogit_app.config.SessionManager;
 import com.gogit.gogit_app.model.github.issue.Issue;
+import com.gogit.gogit_app.model.github.repo.Repository;
 import com.gogit.gogit_app.service.GithubService;
 import com.gogit.gogit_app.util.MyToast;
 
@@ -33,26 +38,32 @@ public class IssuesFragment extends Fragment {
     RecyclerView issuesRecyclerView;
     SessionManager sessionManager;
     String token;
+    String userId;
+    Spinner repoSpinner;
+    String selectedRepoName;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.issues, container, false);
 
         sessionManager = new SessionManager(getContext());
+        token = sessionManager.getToken();
+        userId = sessionManager.getUserId();
 
         retrofit = GithubRetrofitClient.getRetrofitInstance();
-
         githubService = retrofit.create(GithubService.class);
-
-        token = sessionManager.getToken();
 
         issuesRecyclerView = view.findViewById(R.id.issues_recyclerview);
         issuesRecyclerView.setHasFixedSize(false);
         issuesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        repoSpinner = view.findViewById(R.id.repo_spinner);
+
         showIssues(token);
+        setRepoSpinner(token, userId, repoSpinner);
         return view;
     }
 
@@ -65,7 +76,6 @@ public class IssuesFragment extends Fragment {
                 List<Issue> issues = response.body();
                 if (issues != null) {
                     issuesRecyclerView.setAdapter(new IssueAdapter(issues));
-                    Log.d("my tag", issues.toString());
                 } else {
                     MyToast.showToast(getContext(), "이슈가 존재하지 않습니다.");
                 }
@@ -76,5 +86,49 @@ public class IssuesFragment extends Fragment {
                 MyToast.showNetworkErrorToast(getContext());
             }
         });
+    }
+
+    private void setRepoSpinner(String token, String login, Spinner spinner) {
+        Call<List<Repository>> call = githubService.getRepos("Bearer " + token, login);
+        call.enqueue(new Callback<List<Repository>>() {
+            @Override
+            public void onResponse(Call<List<Repository>> call, Response<List<Repository>> response) {
+                List<Repository> repositories = response.body();
+                if (repositories != null) {
+                    String itemNames = "";
+                    for (Repository repository : repositories) {
+                        itemNames += repository.getFull_name().split("/")[1] + ",";
+                    }
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                            getContext(), android.R.layout.simple_spinner_item, itemNames.split(","));
+
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner.setAdapter(adapter);
+                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                            // 선택된 항목 처리
+                            String selectedValue = (String) parentView.getItemAtPosition(position);
+                            selectedRepoName = selectedValue;
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parentView) {
+                            MyToast.showToast(getContext(), "리포지토리가 선택되지 않았습니다.");
+                        }
+                    });
+                } else {
+                    MyToast.showNetworkErrorToast(getContext());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Repository>> call, Throwable t) {
+                MyToast.showNetworkErrorToast(getContext());
+            }
+        });
+
+
     }
 }
