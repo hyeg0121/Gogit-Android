@@ -7,41 +7,81 @@
     android:orientation="vertical"
     android:gravity="center">
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:background="@color/white">
+        android:padding="30dp"
+        android:background="@drawable/delete_modal_radius">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="리포지토리를 삭제하시겠습니까?"
-            android:padding="30dp"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray300"/>
+            android:textSize="16dp"
+            android:textColor="@color/white"
+            android:padding="25dp"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.widget.Button
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_round"
-                android:textColor="@color/error"
-                android:text="삭제"/>
-            <View
-                android:layout_width="1dp"
-                android:layout_height="50dp"
-                android:background="@color/gray300"/>
-            <android.widget.Button
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_round"
-                android:text="취소"/>
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:gravity="center_vertical"
+            android:paddingTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="삭제할 리포지토리 입력 : "/>
+            <TextView
+                android:id="@+id/delete_repository_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:text="haewon/gogit"/>
         </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/white"
+            android:background="@drawable/exdittext_error"/>
+
+        <android.widget.Button
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#272727"
+            android:text="리포지토리 삭제"
+            android:textColor="@color/error"
+            android:background="@drawable/btn_round"/>
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:background="@color/gray300"/>-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+<!--            <android.widget.Button-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@drawable/btn_round"-->
+<!--                android:textColor="@color/error"-->
+<!--                android:text="삭제"/>-->
+<!--            <View-->
+<!--                android:layout_width="1dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:background="@color/gray300"/>-->
+<!--            <android.widget.Button-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@drawable/btn_round"-->
+<!--                android:text="취소"/>-->
+<!--        </LinearLayout>-->
     </LinearLayout>
 
 </LinearLayout>
