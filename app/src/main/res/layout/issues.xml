@@ -24,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"/>
         <EditText
+            android:id="@+id/issue_title_edittext"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="이슈 제목을 입력하세요"
