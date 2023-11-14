@@ -9,17 +9,17 @@
         app:showAsAction="always"
         />
     <item
-        android:id="@+id/post"
-        android:enabled="true"
-        android:icon="@drawable/post_icon"
-        android:title="post"
-        app:showAsAction="always"
-        />
-    <item
         android:id="@+id/issues"
         android:enabled="true"
         android:icon="@drawable/issues_icon"
         android:title="issues"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/post"
+        android:enabled="true"
+        android:icon="@drawable/post_icon"
+        android:title="post"
         app:showAsAction="always"
         />
     <item
