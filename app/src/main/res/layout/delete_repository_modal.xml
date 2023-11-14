@@ -57,6 +57,7 @@
         </LinearLayout>
 
         <EditText
+            android:id="@+id/delete_repository_name_edittext"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:paddingLeft="12dp"
