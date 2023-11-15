@@ -35,11 +35,15 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <CheckBox
+        <android.widget.Button
             android:layout_alignParentRight="true"
-            android:gravity="end"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:text="완료"
+            android:textColor="@color/white"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:textSize="12sp"
+            android:background="@drawable/btn_round"
+            android:backgroundTint="@color/blue"
             android:id="@+id/issues_check"/>
     </RelativeLayout>
 </LinearLayout>

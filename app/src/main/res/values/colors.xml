@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#FF3586FF</color>
     <color name="gray100">#F8F8F8</color>
+    <color name="gray300">#EAEAEA</color>
     <color name="gray400">#E0E0E0</color>
     <color name="gray900">#B3B3B3</color>
     <color name="error">#FF7F7F</color>
