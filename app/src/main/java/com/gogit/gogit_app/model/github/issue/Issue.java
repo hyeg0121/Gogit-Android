@@ -67,4 +67,16 @@ public class Issue {
     public void setBody(String body) {
         this.body = body;
     }
+
+    @Override
+    public String toString() {
+        return "Issue{" +
+                "number=" + number +
+                ", title='" + title + '\'' +
+                ", state='" + state + '\'' +
+                ", user=" + user +
+                ", repository=" + repository +
+                ", body='" + body + '\'' +
+                '}';
+    }
 }

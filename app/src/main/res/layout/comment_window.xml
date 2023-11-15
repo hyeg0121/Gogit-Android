@@ -109,6 +109,7 @@
         <EditText
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:id="@+id/comment_write_edittext"
             android:layout_height="50dp"
             android:background="@drawable/organization_btn_round"
             android:padding="5dp"

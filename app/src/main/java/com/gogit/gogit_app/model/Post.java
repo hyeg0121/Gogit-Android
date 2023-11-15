@@ -10,18 +10,16 @@ public class Post {
     private final List<Comment> comment;
     private final List<Member> likedMembers;
     private final Date createdAt;
+    private final Long commentCount;
 
-    public Post(Long id, Member writer, String content, List<Comment> comment, List<Member> likedMembers, Date createdAt) {
+    public Post(Long id, Member writer, String content, List<Comment> comment, List<Member> likedMembers, Date createdAt, Long commentCount) {
         this.id = id;
         this.writer = writer;
         this.content = content;
         this.comment = comment;
         this.likedMembers = likedMembers;
         this.createdAt = createdAt;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
+        this.commentCount = commentCount;
     }
 
     public Long getId() {
@@ -44,14 +42,24 @@ public class Post {
         return likedMembers;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public Long getCommentCount() {
+        return commentCount;
+    }
+
     @Override
     public String toString() {
         return "Post{" +
                 "id=" + id +
-                ", wrtier=" + writer +
+                ", writer=" + writer +
                 ", content='" + content + '\'' +
                 ", comment=" + comment +
                 ", likedMembers=" + likedMembers +
+                ", createdAt=" + createdAt +
+                ", commentCount=" + commentCount +
                 '}';
     }
 }

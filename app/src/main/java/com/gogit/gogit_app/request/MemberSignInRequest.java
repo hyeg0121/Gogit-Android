@@ -13,4 +13,13 @@ public class MemberSignInRequest {
         this.htmlUrl = htmlUrl;
     }
 
+    @Override
+    public String toString() {
+        return "MemberSignInRequest{" +
+                "githubId='" + githubId + '\'' +
+                ", githubToken='" + githubToken + '\'' +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                ", htmlUrl='" + htmlUrl + '\'' +
+                '}';
+    }
 }
