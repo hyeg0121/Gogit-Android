@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -103,18 +103,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:layout_gravity="bottom"
         android:gravity="center_vertical"
         android:padding="15dp">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/git_logo"/>
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="50dp"
             android:background="@drawable/organization_btn_round"
-            android:drawableRight="@drawable/upload_btn_size"
             android:padding="5dp"
             android:layout_marginLeft="10dp"/>
+        <android.widget.Button
+            android:id="@+id/comment_upload_btn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/upload"
+            android:padding="5dp"/>
     </LinearLayout>
 </LinearLayout>
