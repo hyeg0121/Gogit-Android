@@ -59,8 +59,10 @@ public class TokenActivity extends AppCompatActivity {
             // 세션 스토라지에 저장
             sessionManager.saveLoginDetails(
                     getIntent().getStringExtra(SessionManager.KEY_USERID),
-                    Config.GITHUB_TOKEN
+                    token.trim()
             );
+
+            Log.d("my tag", sessionManager.getToken());
 
             Log.d("my tag", sessionManager.getUserId());
             Log.d("my tag", sessionManager.getToken());
@@ -77,6 +79,9 @@ public class TokenActivity extends AppCompatActivity {
                     getIntent().getStringExtra("avatar_url"),
                     getIntent().getStringExtra("html_url")
             );
+
+            Log.d("my tag", memberSignInRequest.toString());
+
 
             // api 요청
             Call<Member> call = memberService.createMember(memberSignInRequest);
