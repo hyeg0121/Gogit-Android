@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+<data>
+    <variable
+        name="title"
+        type="String" />
+</data>
+
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <!--삭제 버튼 있는 레이아웃-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#eeeeee"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/tvRemove"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/error"
+            android:text="삭제"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_weight="3"/>
+
+    </LinearLayout>
+
+    <!--기본 레이아웃-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_underline"
+        android:background="@color/white"
         android:padding="15dp">
+
         <ImageView
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -43,19 +77,6 @@
                 android:textSize="16dp"
                 android:textColor="@color/blue"
                 android:id="@+id/repository_name"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="public"
-                android:layout_toRightOf="@id/repository_name"
-                android:paddingLeft="10dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:paddingRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/gray900"
-                android:textSize="12dp"
-                android:background="@drawable/organization_btn_round"/>
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -125,7 +146,16 @@
                         android:text="6" />
                 </LinearLayout>
 
+
             </RelativeLayout>
         </RelativeLayout>
+
     </RelativeLayout>
-</LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray900"
+        android:layout_gravity="bottom"/>
+</FrameLayout>
+</layout>
