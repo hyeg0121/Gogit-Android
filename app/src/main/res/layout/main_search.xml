@@ -52,8 +52,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxHeight="400dp"
+                android:layout_height="400dp"
                 android:orientation="vertical"
                 android:id="@+id/repo_search_recyclerview">
             </androidx.recyclerview.widget.RecyclerView>
