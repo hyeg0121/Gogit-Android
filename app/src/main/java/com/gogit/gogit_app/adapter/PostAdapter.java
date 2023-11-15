@@ -66,6 +66,7 @@ public class PostAdapter
             Log.d("my tag", post.toString());
         }
         contentTextView.setText(post.getContent());
+        commentCount.setText(post.getCommentCount()+ "");
 
         view.setOnClickListener(e -> {
             FragmentHelper.replaceFragment(

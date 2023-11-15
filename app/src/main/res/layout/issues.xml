@@ -18,12 +18,13 @@
             android:textSize="24dp"
             android:textStyle="bold"/>
         <Spinner
-            android:id="@+id/owner_select"
+            android:id="@+id/repo_spinner"
             android:layout_marginTop="40dp"
-            android:layout_below="@+id/owner"
+            android:layout_below="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="50dp"/>
         <EditText
+            android:id="@+id/issue_title_edittext"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="이슈 제목을 입력하세요"
@@ -45,14 +46,11 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:scrollbars="none">
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:id="@+id/postContainer">
-            <include layout="@layout/issues_item"/>
-            <include layout="@layout/issues_item"/>
-            <include layout="@layout/issues_item"/>
-        </LinearLayout>
+            android:id="@+id/issues_recyclerview">
+        </androidx.recyclerview.widget.RecyclerView>
     </ScrollView>
 </LinearLayout>

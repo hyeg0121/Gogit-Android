@@ -4,6 +4,7 @@ import com.gogit.gogit_app.model.github.commit.RepoCommit;
 import com.gogit.gogit_app.model.github.issue.Issue;
 import com.gogit.gogit_app.model.github.repo.SearchedRepo;
 import com.gogit.gogit_app.model.github.user.SearchedUser;
+import com.gogit.gogit_app.request.AddIssueRequest;
 import com.gogit.gogit_app.request.AddRepositoryRequest;
 import com.gogit.gogit_app.model.github.user.GithubUser;
 import com.gogit.gogit_app.model.github.repo.Repository;
@@ -69,5 +70,14 @@ public interface GithubService {
             @Path("owner") String owner,
             @Path("repo") String repo
     );
+
+    @POST("/repos/{login}/{repo}/issues")
+    Call<Issue> createIssue(
+            @Header("Authorization") String auth,
+            @Path("login") String login,
+            @Path("repo") String repo,
+            @Body AddIssueRequest addIssueRequest
+    );
+
 
 }
