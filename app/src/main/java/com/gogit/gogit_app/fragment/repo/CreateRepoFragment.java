@@ -4,11 +4,14 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
@@ -42,26 +45,37 @@ public class CreateRepoFragment extends Fragment {
         EditText nameEditText = view.findViewById(R.id.name_editText);
         EditText descEditText = view.findViewById(R.id.desc_editText);
         Button uploadButton = view.findViewById(R.id.upload_button);
+        RadioGroup radioGroup = view.findViewById(R.id.radio_group);
+
 
         // 유저 정보
         SessionManager sessionManager = new SessionManager(getContext());
+        String token = sessionManager.getToken();
 
         githubService = githubRetrofit.create(GithubService.class);
 
         uploadButton.setOnClickListener(e -> {
-            // TODO: 빈 칸일 떄 유효성 검사
             String name = nameEditText.getText().toString();
             String description = descEditText.getText().toString();
 
+            if (name.length() == 0 || description.length() == 0) {
+                MyToast.showToast(getContext(), "빈 칸이 있습니다.");
+                return;
+            }
 
-            createRepo(sessionManager.getToken(), name, description);
+            int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
+
+            // private
+            if (selectedRadioButtonId == 2131231030) createRepo(token, name, description, false);
+            else createRepo(token, name, description, true);
+
         });
 
         return view;
     }
 
-    public void createRepo(String token, String name, String description) {
-        AddRepositoryRequest addRepositoryRequest = new AddRepositoryRequest(name, description);
+    public void createRepo(String token, String name, String description, Boolean isPrivate) {
+        AddRepositoryRequest addRepositoryRequest = new AddRepositoryRequest(name, description, isPrivate);
 
         Call<Map<String, Object>> createRepoCall = githubService.createRepo(
                 "Bearer " + token,
