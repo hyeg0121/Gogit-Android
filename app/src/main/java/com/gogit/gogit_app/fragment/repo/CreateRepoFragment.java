@@ -1,9 +1,13 @@
 package com.gogit.gogit_app.fragment.repo;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +51,53 @@ public class CreateRepoFragment extends Fragment {
         Button uploadButton = view.findViewById(R.id.upload_button);
         RadioGroup radioGroup = view.findViewById(R.id.radio_group);
 
+        nameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // 텍스트 변경 전
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // 텍스트 변경 중
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // 텍스트 변경 후
+                if (s.toString().trim().length() != 0) {
+                    uploadButton.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
+                    uploadButton.setEnabled(true);
+
+                } else {
+                    uploadButton.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
+                    uploadButton.setEnabled(false);
+                }
+            }
+        });
+
+        descEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // 텍스트 변경 전
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // 텍스트 변경 중
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // 텍스트 변경 후
+                if (s.toString().trim().length() != 0) {
+                    uploadButton.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
+
+                } else {
+                    uploadButton.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
+                }
+            }
+        });
 
         // 유저 정보
         SessionManager sessionManager = new SessionManager(getContext());
