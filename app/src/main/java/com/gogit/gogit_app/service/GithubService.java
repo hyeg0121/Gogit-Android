@@ -2,6 +2,7 @@ package com.gogit.gogit_app.service;
 
 import com.gogit.gogit_app.model.github.commit.RepoCommit;
 import com.gogit.gogit_app.model.github.issue.Issue;
+import com.gogit.gogit_app.model.github.org.Organization;
 import com.gogit.gogit_app.model.github.repo.SearchedRepo;
 import com.gogit.gogit_app.model.github.user.SearchedUser;
 import com.gogit.gogit_app.request.AddIssueRequest;
@@ -97,5 +98,11 @@ public interface GithubService {
             @Path("repo") String repo,
             @Path("number") Long number,
             @Body Map<String, String> state
+    );
+
+    @GET("/users/{login}/orgs")
+    Call<List<Organization>> getUsersOrgs(
+            @Header("Authorization") String auth,
+            @Path("login") String login
     );
 }
