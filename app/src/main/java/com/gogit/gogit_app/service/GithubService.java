@@ -14,6 +14,7 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -77,6 +78,13 @@ public interface GithubService {
             @Path("login") String login,
             @Path("repo") String repo,
             @Body AddIssueRequest addIssueRequest
+    );
+
+    @DELETE("/repos/{login}/{repo}")
+    Call<Object> deleteRepo(
+            @Header("Authorization") String auth,
+            @Path("login") String login,
+            @Path("repo") String repo
     );
 
 
