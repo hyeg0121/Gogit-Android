@@ -9,6 +9,8 @@ import com.gogit.gogit_app.request.AddRepositoryRequest;
 import com.gogit.gogit_app.model.github.user.GithubUser;
 import com.gogit.gogit_app.model.github.repo.Repository;
 
+import org.checkerframework.checker.units.qual.C;
+
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +19,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -87,5 +90,12 @@ public interface GithubService {
             @Path("repo") String repo
     );
 
-
+    @PATCH("/repos/{login}/{repo}/issues/{number}")
+    Call<Map<String, Object>> closeIssue(
+            @Header("Authorization") String auth,
+            @Path("login") String login,
+            @Path("repo") String repo,
+            @Path("number") Long number,
+            @Body Map<String, String> state
+    );
 }
