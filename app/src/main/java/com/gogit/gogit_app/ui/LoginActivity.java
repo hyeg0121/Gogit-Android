@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login);
 
         SessionManager sessionManager = new SessionManager(getApplicationContext());
-        sessionManager.clearLoginDetails();
+//        sessionManager.clearLoginDetails();
 
         // 저장된 정보가 있는 경우
         if (sessionManager.getToken() != null
