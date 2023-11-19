@@ -15,7 +15,7 @@ import android.widget.Button;
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.adapter.CommitAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
-import com.gogit.gogit_app.config.SessionManager;
+import com.gogit.gogit_app.util.SessionManager;
 import com.gogit.gogit_app.fragment.modal.RepoDeleteModalFragment;
 import com.gogit.gogit_app.model.github.commit.RepoCommit;
 import com.gogit.gogit_app.service.GithubService;

@@ -24,7 +24,7 @@ import android.widget.Spinner;
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.adapter.IssueAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
-import com.gogit.gogit_app.config.SessionManager;
+import com.gogit.gogit_app.util.SessionManager;
 import com.gogit.gogit_app.model.github.issue.Issue;
 import com.gogit.gogit_app.model.github.repo.Repository;
 import com.gogit.gogit_app.request.AddIssueRequest;

@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.adapter.OrgsAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
-import com.gogit.gogit_app.config.SessionManager;
+import com.gogit.gogit_app.util.SessionManager;
 import com.gogit.gogit_app.model.github.org.Organization;
 import com.gogit.gogit_app.service.GithubService;
 import com.gogit.gogit_app.util.ToastHelper;

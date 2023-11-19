@@ -17,7 +17,7 @@ import android.widget.EditText;
 
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.client.PostRetrofitClient;
-import com.gogit.gogit_app.config.SessionManager;
+import com.gogit.gogit_app.util.SessionManager;
 import com.gogit.gogit_app.fragment.main.HomeFragment;
 import com.gogit.gogit_app.request.AddPostRequest;
 import com.gogit.gogit_app.service.PostService;

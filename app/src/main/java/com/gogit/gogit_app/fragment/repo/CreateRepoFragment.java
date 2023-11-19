@@ -17,7 +17,7 @@ import android.widget.RadioGroup;
 
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
-import com.gogit.gogit_app.config.SessionManager;
+import com.gogit.gogit_app.util.SessionManager;
 import com.gogit.gogit_app.fragment.user.MyPageFragment;
 import com.gogit.gogit_app.request.AddRepositoryRequest;
 import com.gogit.gogit_app.service.GithubService;

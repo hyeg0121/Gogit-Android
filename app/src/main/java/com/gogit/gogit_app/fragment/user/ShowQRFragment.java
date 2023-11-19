@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.config.Config;
-import com.gogit.gogit_app.config.SessionManager;
+import com.gogit.gogit_app.util.SessionManager;
 
 public class ShowQRFragment extends Fragment {
 

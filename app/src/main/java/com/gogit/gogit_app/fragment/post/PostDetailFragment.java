@@ -18,7 +18,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.adapter.CommentAdapter;
 import com.gogit.gogit_app.client.PostRetrofitClient;
-import com.gogit.gogit_app.config.SessionManager;
+import com.gogit.gogit_app.util.SessionManager;
 import com.gogit.gogit_app.model.Comment;
 import com.gogit.gogit_app.model.Post;
 import com.gogit.gogit_app.request.AddCommentRequest;

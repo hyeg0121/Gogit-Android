@@ -23,7 +23,7 @@ import com.gogit.gogit_app.adapter.PostAdapter;
 import com.gogit.gogit_app.adapter.RepoAdapter;
 import com.gogit.gogit_app.client.GithubRetrofitClient;
 import com.gogit.gogit_app.client.PostRetrofitClient;
-import com.gogit.gogit_app.config.SessionManager;
+import com.gogit.gogit_app.util.SessionManager;
 import com.gogit.gogit_app.fragment.modal.OrgModalFragment;
 import com.gogit.gogit_app.model.github.org.Organization;
 import com.gogit.gogit_app.model.github.user.GithubUser;

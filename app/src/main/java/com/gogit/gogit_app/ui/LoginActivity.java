@@ -8,7 +8,7 @@ import android.util.Log;
 import android.widget.Button;
 
 import com.gogit.gogit_app.R;
-import com.gogit.gogit_app.config.SessionManager;
+import com.gogit.gogit_app.util.SessionManager;
 import com.gogit.gogit_app.util.ToastHelper;
 
 import org.kohsuke.github.GitHub;
