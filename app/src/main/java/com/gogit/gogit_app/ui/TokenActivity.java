@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.gogit.gogit_app.R;
 import com.gogit.gogit_app.client.MemberRetrofitClient;
+import com.gogit.gogit_app.util.CheckApiValidityTask;
 import com.gogit.gogit_app.util.SessionManager;
 import com.gogit.gogit_app.model.Member;
 import com.gogit.gogit_app.request.MemberSignInRequest;
@@ -64,16 +65,8 @@ public class TokenActivity extends AppCompatActivity {
             }
 
             // 토큰이 유효한지 검사
-            try {
-                GitHub gitHub = new GitHubBuilder().withOAuthToken(token).build();
-                gitHub.checkApiUrlValidity();
-            } catch (IOException exception) {
-                // 유효하지 않을 때
-                ToastHelper.showToast(this, "토큰이 유효하지 않습니다.");
-                tokenEditText.setText("");
-                errorTextView.setVisibility(View.VISIBLE);
-                return;
-            }
+            new CheckApiValidityTask(token, this).execute();
+
 
             // 세션 스토리지에 저장
             sessionManager.saveLoginDetails(

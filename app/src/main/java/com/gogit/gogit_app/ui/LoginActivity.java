@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Button;
 
 import com.gogit.gogit_app.R;
+import com.gogit.gogit_app.util.CheckApiValidityTask;
 import com.gogit.gogit_app.util.SessionManager;
 import com.gogit.gogit_app.util.ToastHelper;
 
@@ -24,22 +25,15 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login);
 
         SessionManager sessionManager = new SessionManager(getApplicationContext());
-//        sessionManager.clearLoginDetails();
+        sessionManager.clearLoginDetails();
 
         // 저장된 정보가 있는 경우
         if (sessionManager.getToken() != null
                 && sessionManager.getUserId() != null
                 && sessionManager.getPk() != null) {
 
-            // 저장된 토큰이 유효한지 검사
-            try {
-                GitHub gitHub = new GitHubBuilder().withOAuthToken(sessionManager.getToken()).build();
-                gitHub.checkApiUrlValidity();
-            } catch (IOException e) {
-                ToastHelper.showToast(this, "토큰이 유효하지 않아 다시 로그인합니다.");
-                Log.d("my tag", e.getMessage());
-                return;
-            }
+            // 토큰이 유효한지 검사
+            new CheckApiValidityTask(sessionManager.getToken(), this).execute();
 
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
