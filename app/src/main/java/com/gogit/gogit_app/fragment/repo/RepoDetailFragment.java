@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,7 @@ import com.gogit.gogit_app.config.SessionManager;
 import com.gogit.gogit_app.fragment.modal.RepoDeleteModalFragment;
 import com.gogit.gogit_app.model.github.commit.RepoCommit;
 import com.gogit.gogit_app.service.GithubService;
-import com.gogit.gogit_app.util.MyToast;
+import com.gogit.gogit_app.util.ToastHelper;
 
 import java.util.List;
 
@@ -113,7 +112,7 @@ public class RepoDetailFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<RepoCommit>> call, Throwable t) {
-                MyToast.showNetworkErrorToast(getContext());
+                ToastHelper.showNetworkErrorToast(getContext());
             }
         });
     }
