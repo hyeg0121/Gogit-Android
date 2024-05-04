@@ -1,6 +1,9 @@
 ### 꼬깃꼬깃 안드로이드 앱
 > 꼬깃꼬깃 안드로이드 앱 프로젝트 리포지토리입니다.
 
+- [스프링부트 서버 리포지토리](https://github.com/hyeg0121/Gogit-UserService)
+- [익스프레스 서버 리포지토리](https://github.com/hyeg0121/Gogit-PostService)
+
 <br>
 
 ### 꼬깃꼬깃이란?
